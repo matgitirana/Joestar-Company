@@ -83,7 +83,7 @@
 				
 				<tr>
 					<td><label>Senha</label></td>
-					<td><input type="password" size="30" name="senha" minlength="8" maxlength="30" ></td>
+					<td><input type="password" size="30" name="senha" minlength="1" maxlength="30" ></td>
 				</tr>
 				
 				
