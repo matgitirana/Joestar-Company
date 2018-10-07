@@ -20,14 +20,16 @@
             $lista_usuarios [$i] = explode ("|", $linhas [$i]);
         }
 
-        /*
+
+        
+
+       
         for ($i = 0; $i < sizeof($linhas); $i++) {
-            $lista_usuarios[$i][]
-            list($nome_s, $sobrenome_s, $data_s, $endereco_s, $telefone_s, $sexo_s, $rg_s, $cpf_s, $foto_s, $usuario_s, $senha_s) = explode ("|", $linhas [$i]);
+            list($nome_s[$i], $sobrenome_s[$i], $data_s[$i], $endereco_s[$i], $telefone_s[$i], $sexo_s[$i], $rg_s[$i], $cpf_s[$i], $foto_s[$i], $usuario_s[$i], $senha_s[$i]) = explode ("|", $linhas [$i]);
         }
-        */
+        
         for($i=0; $i< sizeof($lista_usuarios); $i++){
-                if($lista_usuarios[$i][9] == $usuario && $lista_usuarios[$i][10] == $senha){
+                if($usuario_s[$i] == $usuario && $senha_s[$i] == $senha){
                     $login_valido = true;
                 }
         }
