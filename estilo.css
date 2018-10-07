@@ -1,0 +1,51 @@
+body {
+	background: #e7e0e6;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+#topo {
+	
+	min-height: 50px;
+	color: #FFF;
+	text-shadow: 1px 1px 0px #50bae2;
+	margin-bottom:0px;
+}
+
+#menu {
+	float: right;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+#menu li {
+	float: left;
+	margin-left: 15px;
+}
+
+#menu a:link{
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 18px;
+	color: blue;
+	text-shadow:none;
+}
+
+a:visited{
+    color: #7a1a8b;
+}
+
+a:hover {
+	color: black;
+}
+
+#rodape {
+    min-height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    
+    padding: 20px 0px 20px 0px;
+	font-size: 14px;
+	color: black;
+}
