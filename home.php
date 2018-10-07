@@ -180,9 +180,19 @@
 
 
                 ?>
-                <tr  align='center' valign='bottom'>   
-                    <td colspan='8' ><p>Cadastre uma <a href='viagem_dos_sonhos.php'>viagem dos sonhos</a></p></td>
-                </tr>
+
+                <?php
+                    if($_SESSION['usuario_sessao'] != ''){
+                        echo "
+                        <tr  align='center' valign='bottom'>   
+                            <td colspan='8' ><p>Cadastre uma <a href='viagem_dos_sonhos.php'>viagem dos sonhos</a></p></td>
+                        </tr>";
+                    }
+                ?>
+
+
+
+                
         </td>
             
 
