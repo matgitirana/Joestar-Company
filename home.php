@@ -168,7 +168,7 @@
                     for($i=0;$i<sizeof($linhas);$i++){
                         if($user[$i]=="" || $user[$i]==$_SESSION['usuario_sessao']){
                             
-                            $custo = $diarias[$i]*100 + $estrelas[$i]*500;
+                            $custo = $diarias[$i]*100 * $estrelas[$i];
                             if($transportes[$i] == "Aviao"){
                                 $custo+=2000;
                             } else if($transportes[$i] == "Trem"){
@@ -177,7 +177,7 @@
                                 $custo+=1000;
                             }
                             if($translados[$i]=="Sim"){
-                                $custo+=500;
+                                $custo+=300;
                             }
                             if($passeios[$i]=="Sim"){
                                 $custo+=500;
