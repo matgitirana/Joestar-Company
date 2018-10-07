@@ -18,6 +18,16 @@
         list($destinos[$i], $datas[$i],$diarias[$i], $transportes[$i], $translados[$i], $estrelas[$i], $passeios[$i], $user[$i])= explode ("|", $linhas [$i]);
     }
 
+    for ($i = 0; $i < sizeof($linhas); $i++) {
+        if($translados[$i]=="false")
+            $translados[$i] ="Nao";
+        else
+            $translados[$i] ="Sim";
+        if($passeios[$i]=="false")
+            $passeios[$i] ="Nao";
+        else
+            $passeios[$i] ="Sim";
+    }
     $arquivo_usuario = "arquivos/usuarios.txt";
     
 
