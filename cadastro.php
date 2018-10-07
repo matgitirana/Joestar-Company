@@ -3,7 +3,6 @@
 	if(!isset($_SESSION['usuario_sessao'])){
 		$_SESSION["usuario_sessao"] = "";
 	}
-
 ?>
 
 <html>
@@ -21,7 +20,6 @@
 			</ul>
         </div>
 
-        <div>
         	<form action="cadastro2.php" method="post" enctype='multipart/form-data'>
 			<table align="center" border="0" width =30%>
 
@@ -74,19 +72,15 @@
 					<td><input type="file" name="foto"></td>
 				</tr>
 				
-	
 				<tr>
 					<td><label>Login</label></td>
 					<td><input type="text" size="30" name="usuario" maxlength="15"></td>
 				</tr>
 				
-				
 				<tr>
 					<td><label>Senha</label></td>
 					<td><input type="password" size="30" name="senha" minlength="1" maxlength="30" ></td>
 				</tr>
-				
-				
 				
 				<tr>
 					<td align="center" colspan="2">
@@ -94,13 +88,8 @@
 					</td>
 				</tr>
 				
-			
-			
 			</table>
 		    </form>
-
-        </div>
-
 
 		<div id='rodape'>
 			<footer>
@@ -109,5 +98,4 @@
 		</div>
 
     </body>
-
 </html>

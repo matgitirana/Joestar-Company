@@ -1,5 +1,4 @@
 <?php
-
     session_start();
     if(!isset($_SESSION['usuario_sessao'])){
         $_SESSION['usuario_sessao'] = '';
@@ -10,10 +9,8 @@
     $conteudo = file_get_contents($arquivo_viagens);
     if(filesize($arquivo_viagens_dos_sonhos) !=0)
         $conteudo = $conteudo . "\r\n" . file_get_contents($arquivo_viagens_dos_sonhos);
-    // Separa as linhas
     $linhas = explode ("\r\n", $conteudo);
     
-    // Separa os registros
     for ($i = 0; $i < sizeof($linhas); $i++) {
         list($destinos[$i], $datas[$i],$diarias[$i], $transportes[$i], $translados[$i], $estrelas[$i], $passeios[$i], $user[$i])= explode ("|", $linhas [$i]);
     }
@@ -30,11 +27,8 @@
     }
     $arquivo_usuario = "arquivos/usuarios.txt";
     
-
-    // Separa os registros
     if(filesize($arquivo_usuario)!=0){
         $conteudo = file_get_contents($arquivo_usuario);
-        // Separa as linhas
         $linhas_usuario = explode ("\r\n", $conteudo);
         for ($i = 0; $i < sizeof($linhas_usuario); $i++) {
             list($nome[$i], $sobrenome[$i], $data[$i], $endereco[$i], $telefone[$i], $sexo[$i], $rg[$i], $cpf[$i], $foto[$i], $usuario[$i], $senha[$i]) = explode ("|", $linhas_usuario [$i]);
@@ -49,10 +43,7 @@
             }
         }
     }
-    
-
     $custo = 0;
-    
 ?>
 
 <html>
@@ -63,7 +54,6 @@
     </head>
 
     <body>
-
         <div id='topo'>
             <ul id='menu'>
                 <?php
@@ -73,14 +63,9 @@
                         echo "<li><a href='logout.php'>Logout</a></li>";
                     }
                 ?>
-
-                
 			</ul>
         </div>
-
-        <div>
         <table align='center' border='0' width =100%>
-        
         <tr>
         <?php
         if($_SESSION['usuario_sessao'] != ''){
@@ -90,7 +75,6 @@
                     <td colspan='10' ><h1>Usuário</h1></td>
                 </tr>";
                 
-        
                 for($i=0;$i<sizeof($linhas_usuario);$i++){
                     if($usuario[$i]==$_SESSION['usuario_sessao']){
                         echo "
@@ -139,7 +123,6 @@
                                     <tr>
                                 ";
                             }
-                            
                     }
                 }
             echo "
@@ -167,7 +150,6 @@
                 <?php
                     for($i=0;$i<sizeof($linhas);$i++){
                         if($user[$i]=="" || $user[$i]==$_SESSION['usuario_sessao']){
-                            
                             $custo = $diarias[$i]*100 * $estrelas[$i];
                             if($transportes[$i] == "Aviao"){
                                 $custo+=2000;
@@ -195,13 +177,8 @@
                                 </tr>
                             ";
                         }
-                        
                     }
 
-
-                ?>
-
-                <?php
                     if($_SESSION['usuario_sessao'] != ''){
                         echo "
                         <tr  align='center' valign='bottom'>   
@@ -209,20 +186,10 @@
                         </tr>";
                     }
                 ?>
-
-
-
-                
         </td>
-            
-
             </table>
         </tr>
         </table>
-            
-
-        </div>
-
 
 		<div id='rodape'>
 			<footer>
@@ -231,5 +198,4 @@
 		</div>
 
     </body>
-
 </html>

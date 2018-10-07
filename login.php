@@ -3,7 +3,6 @@
 	if(!isset($_SESSION['usuario_sessao'])){
 		$_SESSION["usuario_sessao"] = "";
 	}
-
 ?>
 
 <html>
@@ -21,8 +20,6 @@
 			</ul>
         </div>
 
-        <div>
-        	
 			<div style="list-style: none; text-align: center;">
 				<form action="login2.php" method="post">
 				<li><label>Login</label>
@@ -33,10 +30,6 @@
 				<li><p>Não possui cadastro? Clique <a href='cadastro.php'>aqui</a></p></li>
 				</form>
 			</div>
-			
-
-        </div>
-
 
 		<div id='rodape'>
 			<footer>
@@ -45,5 +38,4 @@
 		</div>
 
     </body>
-
 </html>
