@@ -19,23 +19,27 @@
     }
 
     $arquivo_usuario = "arquivos/usuarios.txt";
-    $conteudo = file_get_contents($arquivo_usuario);
-    // Separa as linhas
-    $linhas_usuario = explode ("\r\n", $conteudo);
+    
 
     // Separa os registros
-    for ($i = 0; $i < sizeof($linhas_usuario); $i++) {
-        list($nome[$i], $sobrenome[$i], $data[$i], $endereco[$i], $telefone[$i], $sexo[$i], $rg[$i], $cpf[$i], $foto[$i], $usuario[$i], $senha[$i]) = explode ("|", $linhas_usuario [$i]);
-    }
-    for ($i = 0; $i < sizeof($linhas_usuario); $i++) {
-        if($sexo[$i]=='m'){
-            $sexo[$i] = "Masculino";
-        } else if($sexo[$i]=='f'){
-            $sexo[$i] = "Feminino";
-        } else{
-            $sexo[$i] = "Outro";
+    if($arquivo_usuario!=0){
+        $conteudo = file_get_contents($arquivo_usuario);
+        // Separa as linhas
+        $linhas_usuario = explode ("\r\n", $conteudo);
+        for ($i = 0; $i < sizeof($linhas_usuario); $i++) {
+            list($nome[$i], $sobrenome[$i], $data[$i], $endereco[$i], $telefone[$i], $sexo[$i], $rg[$i], $cpf[$i], $foto[$i], $usuario[$i], $senha[$i]) = explode ("|", $linhas_usuario [$i]);
+        }
+        for ($i = 0; $i < sizeof($linhas_usuario); $i++) {
+            if($sexo[$i]=='m'){
+                $sexo[$i] = "Masculino";
+            } else if($sexo[$i]=='f'){
+                $sexo[$i] = "Feminino";
+            } else{
+                $sexo[$i] = "Outro";
+            }
         }
     }
+    
 
     $custo = 0;
     
