@@ -51,17 +51,25 @@
 		
         if($cadastro_valido){
 
-            $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando //extensão do arquivo
+            $caminho_foto="";
+            if(filesize($_FILES['foto']!=0)){
+                $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando //extensão do arquivo
 
-            $diretorio = 'fotos/'; //Diretório para uploads
-            $caminho_foto = $diretorio . 'foto_' . $_POST['usuario']. $extensao;
-            move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto); //Fazer upload do //arquivo
+                $diretorio = 'fotos/'; //Diretório para uploads
+                $caminho_foto = $diretorio . 'foto_' . $_POST['usuario']. $extensao;
+                move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto); //Fazer upload do //arquivo
+            }
+            
+            
 
             $cadastro_texto = $nome . "|" . $sobrenome . "|" . $data_nascimento . "|" . $endereco . "|" . $telefone . "|" . $sexo . "|" . $rg . "|" .$cpf . "|" . $caminho_foto ."|" . $usuario . "|" . $senha;
 
             $arquivo_usuario = "arquivos/usuarios.txt";
             $conteudo = file_get_contents($arquivo_usuario);
-            $conteudo .= "\r\n".$cadastro_texto;
+            if($conteudo!="")
+                $conteudo .= "\r\n".$cadastro_texto;
+            else
+                $conteudo .= $cadastro_texto;
             file_put_contents($arquivo_usuario, $conteudo);
             header("Location: login.php");
         } else{

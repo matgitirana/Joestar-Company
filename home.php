@@ -22,7 +22,7 @@
     
 
     // Separa os registros
-    if($arquivo_usuario!=0){
+    if(filesize($arquivo_usuario)!=0){
         $conteudo = file_get_contents($arquivo_usuario);
         // Separa as linhas
         $linhas_usuario = explode ("\r\n", $conteudo);
@@ -120,10 +120,16 @@
                                 <th>Login</th>    
                                 <td>$usuario[$i]</td>
                             <tr>
-                            <tr>   
-                                <td colspan='2'><img width ='80%' src = '$foto[$i]'></td>
-                            <tr>
+                            
                             ";
+                            if($foto[$i]!=""){
+                                echo "
+                                    <tr>   
+                                        <td colspan='2'><img width ='80%' src = '$foto[$i]'></td>
+                                    <tr>
+                                ";
+                            }
+                            
                     }
                 }
             echo "
