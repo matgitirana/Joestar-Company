@@ -1,3 +1,0 @@
-
-Sao Paulo|2018-01-01|1|Trem|false|1|false|matheus
-Sao Paulo|2018-10-25|1|Trem|true|1|true|matheus
