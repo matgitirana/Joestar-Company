@@ -22,39 +22,82 @@
 			</ul>
         </div>
 
-        <div>
         	<form action="viagem_dos_sonhos2.php" method="post">
+			<table align="center" border="0" widtd =50%>
 
-    
-					<!-- <label>Destino</label>
-					<input type="text" size="30" name="usuario" maxlength="15">
+					<tr>
+
+					
+					<td><label>Destino</label></td>
+					<td>
+					<select name='destino'>
+						<option value="Sao Paulo">Sao Paulo</option>
+						<option value="Rio de Janeiro">Rio de Janeiro</option>
+						<option value="Londres">Londres</option>
+						<option value="Paris">Paris</option>
+						<option value="Toquio">Toquio</option>
+					</select>
+					</td>
+					</tr>
 				
-					<label>Data</label>
+				<tr>
+					<td><label>Data</label></td>
+					<td>
 					<input type="date" size="30" name="data">
+					</td>
+					</tr>
+					<tr>
+                    <td><label>Diárias</label></td>
+					<td>
+					<input type="number" size="30" name="diarias" maxlengtd="2">
+					</td>
+					</tr>
 
-                    <label>Diárias</label>
-					<input type="number" size="30" name="senha"maxlength="30">
+					<tr>
+                    <td><label>Tipo de transporte</label></td>
+					<td>
+					<select name='transporte'>
+						<option value="Trem">Trem</option>
+						<option value="Navio">Navio</option>
+						<option value="Aviao">Aviao</option>
+					</select>
+					</td>
+					</tr>
+					<tr>
+					
+                    <td><label>Translado</label></td>
+					<td>
+					<input type="radio" name="translado" value=true>Sim
+					<input type="radio" name="translado" value=false checked="checked">Nao
+					</td>
+					</tr>
+					<tr>
+                    <td><label>Hospedagem</label></td>
+					<td>
+					<select name='hospedagem'>
+						<option value="1">1 estrela</option>
+						<option value="2">2 estrelas</option>
+						<option value="3">3 estrelas</option>
+						<option value="4">4 estrelas</option>
+						<option value="5">5 estrelas</option>
+					</select>
+					</td>
+					</tr>
+<tr>
+                    <td><label>Passeios</label></td>
+					<td>
+					<input type="radio" name="passeios" value=true>Sim
+					<input type="radio" name="passeios" value=false checked="checked">Nao
+					</td>
+					</tr>
 
-                    <label>Tipo de transporte</label>
-					<input type="password" size="30" name="senha" minlength="8" maxlength="30">
-				
-                    <label>Translado</label>
-					<input type="password" size="30" name="senha" minlength="8" maxlength="30">
-
-                    <label>Hospedagem</label>
-					<input type="password" size="30" name="senha" minlength="8" maxlength="30">
-
-                    <label>Passeios</label>
-					<input type="password" size="30" name="senha" minlength="8" maxlength="30">
-
-				
-					<input type="submit" value="Enviar"> -->
-				
-			
-			
+					<tr>
+					<td colspan=2 align="center">
+					<input type="submit" value="Enviar">
+					</td>
+					</tr>
+			</table>
 		    </form>
-
-        </div>
 
 
 		<div id='rodape'>
