@@ -52,7 +52,15 @@
 
         <div id='topo'>
             <ul id='menu'>
-                <li><a href='logout.php'>Logout</a></li>
+                <?php
+                    if($_SESSION['usuario_sessao'] == ''){
+                        echo "<li><a href='login.php'>Login</a></li>";
+                    } else{
+                        echo "<li><a href='logout.php'>Logout</a></li>";
+                    }
+                ?>
+
+                
 			</ul>
         </div>
 
