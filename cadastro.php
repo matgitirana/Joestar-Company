@@ -16,6 +16,7 @@
 
         <div id="topo">
             <ul id="menu">
+		    		<li><a href='home.php'>Home</a></li>
 				<li><a href='login.php'>Login</a></li>				
 			</ul>
         </div>
