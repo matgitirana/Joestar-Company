@@ -48,7 +48,7 @@
 
 <html>
     <head>
-        <title> Agência de Viagens - Viagem dos Sonhos </title>
+        <title> Agência de Viagens - Home </title>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 		<link rel='stylesheet' href='estilo.css' type='text/css' />
     </head>

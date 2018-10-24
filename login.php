@@ -7,7 +7,7 @@
 
 <html>
     <head>
-        <title> Agência de Viagens - Cadastro </title>
+        <title> Agência de Viagens - Login </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="estilo.css" type="text/css" />
     </head>
@@ -16,6 +16,7 @@
 
         <div id="topo">
             <ul id="menu">
+				<li><a href='home.php'>Home</a></li>
 				<li><a href='login.php'>Login</a></li>
 			</ul>
         </div>

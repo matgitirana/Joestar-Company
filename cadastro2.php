@@ -36,7 +36,7 @@
             }
 
             for($i=0; $i< sizeof($linhas); $i++){
-                if($usuario_s[$i] == $usuario || $cpf[$i] == $cpf){
+                if($usuario_s[$i] == $usuario){
                     $cadastro_valido=false;
                 }
             }
