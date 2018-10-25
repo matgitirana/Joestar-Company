@@ -42,6 +42,7 @@
     }
 
 
+	$teste="";
     //user input
     $rg=$_POST['rg'];
 	$cpf=$_POST['cpf'];
@@ -70,23 +71,23 @@
     $qtdRg = $consulta['quantidade'];
     
     //check if login is already registered
-    $sql="select count(login) as quantidade from Usuario where login = '".$login."';";
+    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdLogin = $consulta['quantidade'];
     $today = date("Y-m-d");
         
     if(validar_cpf($cpf)==false){
-    	$cadastro_valido=false;
+		$cadastro_valido=false;
     } else if($qtdCpf!=0){
     	$cadastro_valido=false;
     } else if(strlen($nome)==0){
     	$cadastro_valido=false;
     } else if(strlen($sobrenome)==0){
-            $cadastro_valido=false;
+        $cadastro_valido=false;
     } else if(strlen($endereco)==0){
     	$cadastro_valido=false;
-    } else if(strlen($login)==0){
+    } else if(strlen($usuario)==0){
     	$cadastro_valido=false;
     } else if($qtdLogin!=0){
     	$cadastro_valido=false;
@@ -106,7 +107,7 @@
     	$cadastro_valido=false;
     }
     
-    if($cadastro_valido){
+    if($cadastro_valido==true){
         $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
         $diretorio = 'fotos/'; //Diretório para uploads
         $caminho_foto = $diretorio . 'foto_' . $_POST['usuario']. $extensao;
