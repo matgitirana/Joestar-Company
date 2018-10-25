@@ -25,23 +25,23 @@
 			<table align="center" border="0" width =30%>
 
 				<tr>
-					<td><label>Nome*</label></td>
+					<td><label>Nome</label></td>
 					<td><input type="text" size="30" name="nome" maxlength="50"></td>
 				</tr>	
 				
 				<tr>
-					<td><label>Sobrenome*</label></td>
+					<td><label>Sobrenome</label></td>
 					<td><input type="text" size="30" name="sobrenome" maxlength="50"></td>
 				</tr>
 
 				<tr>
-					<td><label>Data de nascimento*</label></td>
+					<td><label>Data de nascimento</label></td>
 					<td><input type="date" size="30" name="data_nascimento" maxlength="50"></td>
 				</tr>
 
 				<tr>
 					<td><label>Endereço</label></td>
-					<td><input type="text" size="30" name="endereco" maxlength="150"></td>
+					<td><input type="text" size="30" name="endereco" maxlength="50"></td>
 				</tr>
 
 				<tr>
@@ -60,7 +60,7 @@
 				
 				<tr>
 					<td><label>RG</label></td>
-					<td><input type="text" size="30" name="rg"></td>
+					<td><input type="text" size="30" name="rg" maxlength="30"></td>
 				</tr>
 
 				<tr>
@@ -74,13 +74,13 @@
 				</tr>
 				
 				<tr>
-					<td><label>Login*</label></td>
-					<td><input type="text" size="30" name="usuario" maxlength="15"></td>
+					<td><label>Login</label></td>
+					<td><input type="text" size="30" name="usuario" maxlength="10"></td>
 				</tr>
 				
 				<tr>
-					<td><label>Senha*</label></td>
-					<td><input type="password" size="30" name="senha" minlength="1" maxlength="30" ></td>
+					<td><label>Senha</label></td>
+					<td><input type="password" size="30" name="senha" minlength="5" maxlength="20" ></td>
 				</tr>
 				
 				<tr>
