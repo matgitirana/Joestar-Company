@@ -25,7 +25,7 @@
     $senha=$_POST['senha'];
     //check login
     $login_valido = true;		
-    $sql = "select senha, status, tipo from Pessoa where login='".$usuario."';";
+    $sql = "select senha, status, tipo from Usuario where login='".$usuario."';";
 	$sqlResultado = $conn->query($sql);
 	$consulta = mysqli_fetch_assoc($sqlResultado);
 	if($consulta["senha"]!=$senha || $consulta["status"]!='1'){
@@ -41,7 +41,7 @@
         
     //go back to login page        
     } else{
-        header("Location: login.php"); /* Redirect browser */
+        header("Location: login.php"); 
         exit();
     }
 ?>
