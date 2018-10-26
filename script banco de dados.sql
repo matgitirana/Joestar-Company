@@ -35,10 +35,8 @@ create table JoestarCompany.Viagem(
     status char(1) not null,
     preco_diaria double not null,
     preco_translado double not null,
-    usuario varchar(10),
     caminho_foto varchar(60) not null,
     constraint viagem_pk primary key(id),
-    constraint viagem_fk_usuario foreign key(usuario) references Usuario(login),
     constraint viagem_fk_transporte foreign key(transporte) references Transporte(transporte)
 
 );
