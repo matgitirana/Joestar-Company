@@ -109,14 +109,19 @@
     
     if($cadastro_valido==true){
         $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
-        $diretorio = 'fotos/'; //Diretório para uploads
+        $diretorio = 'fotos/usuarios'; //Diretório para uploads
         $caminho_foto = $diretorio . 'foto_' . $_POST['usuario']. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto); //Fazer upload do arquivo
     	
-		$status = '1';
-		$tipo = 'cliente';
+        $status = '1';
+        if($_SESSION["tipo_usuario"] == "adm"){
+            $tipo = "adm";
+        } else{
+            $tipo = 'cliente';
+        }
+		
 		//insere no banco
-        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, dataNascimento, tipo, status, login,  senha, caminhoFoto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$status."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
+        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, status, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$status."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
         $conn->query($sql);
             
         header("Location: login.php");
