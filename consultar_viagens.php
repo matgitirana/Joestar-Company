@@ -19,7 +19,7 @@
 	}
 
     //seleciona todas as viagens que não são viagem dos sonhos
-    $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem where usuario is NULL;";
+    $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem;";
     $sqlResult = $conn->query($sql);
     
     $preco = 0;
@@ -58,7 +58,6 @@
                     <th>Diárias</th>
                     <th>Transporte</th>
                     <th>Preço</th>
-                    <th></th>
                 </tr>
 
                 <?php
@@ -84,13 +83,6 @@
                             ";
                             }
                         }
-                    }
-
-                    if($_SESSION['usuario_sessao'] != ''){
-                        echo "
-                        <tr  align='center' valign='bottom'>   
-                            <td colspan='8' ><p>Cadastre uma <a href='viagem_dos_sonhos.php'>viagem dos sonhos</a></p></td>
-                        </tr>";
                     }
                 ?>
         </td>
