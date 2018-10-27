@@ -14,12 +14,12 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
     } 
-    $usuario = $_POST['usuario'];
+    $id = $_POST['id'];
     
     
-    $sql = "update Usuario set status= '0' where  login='".$usuario."';";
+    $sql = "update Usuario set status= '0' where  id='".$id."';";
     $sqlResult = mysqli_query($conn,$sql);
-    if($usuario==$_SESSION["usuario_sessao"]){
+    if($id==$_SESSION["usuario_id"]){
         header("Location: logout.php");
     }
     else{

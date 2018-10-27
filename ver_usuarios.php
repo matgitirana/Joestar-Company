@@ -118,7 +118,7 @@
 									";
 									if($row["tipo"]=='cliente'){
 										echo"
-											<td><a href=deletar_usuario.php?login=". $row["login"] .">Deletar Cliente</td>
+											<td><a href=deletar_usuario.php?id=". $row["id"] .">Deletar Cliente</td>
 										";
 									}
 								echo"

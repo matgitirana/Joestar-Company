@@ -20,12 +20,12 @@
     }
 
 	if($_SESSION["tipo_usuario"] = "cliente"){
-		$usuario = $_SESSION["usuario_sessao"];
+		$usuario_id = $_SESSION["usuario_id"];
 	} else if($_SESSION["tipo_usuario"] = "admin"){
-		$usuario = $_GET['usuario'];
+		$usuario_id = $_GET['id'];
 	}
 
-    $sql="select * from Usuario where login = '". $usuario ."';";
+    $sql="select * from Usuario where id = '". $usuario_id ."';";
     $sqlResult = mysqli_query($conn,$sql);
     $consulta = mysqli_fetch_assoc($sqlResult);
     

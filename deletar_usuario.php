@@ -19,13 +19,13 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-    if($_SESSION["tipo_usuario"] == "cliente"){
-		$usuario = $_SESSION["usuario_sessao"];
-	} else if($_SESSION["tipo_usuario"] == "adm"){
-		$usuario = $_GET['login'];
+    if($_SESSION["tipo_usuario"] = "cliente"){
+		$usuario_id = $_SESSION["usuario_id"];
+	} else if($_SESSION["tipo_usuario"] = "admin"){
+		$usuario_id = $_GET['id'];
 	}
 
-    $sql="select * from Usuario where login = '".$usuario."';";
+    $sql="select * from Usuario where id = '". $usuario_id ."';";
     $sqlResult = mysqli_query($conn,$sql);
     $consulta = mysqli_fetch_assoc($sqlResult);
     
@@ -135,7 +135,7 @@
 					<td><input type='text' size='30' name='cpf' maxlength='11' minlength='11' value='". $consulta['cpf'] ."' disabled></td>
 				</tr>
 				
-				
+				<input type='hidden' name='id' value=". $consulta['id'] .">
 				
 				<tr>
 					<td><label>Login</label></td>

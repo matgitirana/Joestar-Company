@@ -19,7 +19,7 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql="select * from Usuario where login = '".$_SESSION["usuario_sessao"]."';";
+    $sql="select * from Usuario where id = '".$_SESSION["usuario_id"]."';";
     $sqlResult = mysqli_query($conn,$sql);
     $consulta = mysqli_fetch_assoc($sqlResult);
     
