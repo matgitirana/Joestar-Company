@@ -76,11 +76,6 @@
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdLogin = $consulta['quantidade'];
     $today = date("Y-m-d");
-
-    $sql="select count(id) as quantidade from Usuario;";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
-    $id_usuario = $consulta['quantidade']+1;
         
     if(validar_cpf($cpf)==false){
 		$cadastro_valido=false;
@@ -113,6 +108,11 @@
     }
     
     if($cadastro_valido==true){
+        $sql="select count(id) as quantidade from Usuario;";
+        $sqlResultado = $conn->query($sql);
+        $consulta = mysqli_fetch_assoc($sqlResultado);
+        $id_usuario = $consulta['quantidade']+1;
+
         $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
         $diretorio = 'fotos/usuarios/'; //Diretório para uploads
         $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;

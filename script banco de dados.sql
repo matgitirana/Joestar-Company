@@ -29,7 +29,7 @@ create table JoestarCompany.Transporte(
 
 create table JoestarCompany.Viagem(
     id int AUTO_INCREMENT not null,
-    destino varchar(30) unique not null,
+    destino varchar(30) not null,
     data_partida date not null,
     diarias int not null,
     transporte varchar(50) not null,

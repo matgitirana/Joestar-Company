@@ -19,10 +19,10 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-    if($_SESSION["tipo_usuario"] = "cliente"){
+    if($_SESSION["tipo_usuario"] == "cliente"){
 		$usuario = $_SESSION["usuario_sessao"];
-	} else if($_SESSION["tipo_usuario"] = "admin"){
-		$usuario = $_GET['usuario'];
+	} else if($_SESSION["tipo_usuario"] == "adm"){
+		$usuario = $_GET['login'];
 	}
 
     $sql="select * from Usuario where login = '".$usuario."';";

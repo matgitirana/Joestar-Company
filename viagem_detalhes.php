@@ -119,7 +119,7 @@
                 <td align='center' colspan='2'>Gostaria de deixar uma sugestão ou uma dúvida?</td>
             </tr>
             <tr>
-                <td align='center' colspan='2'><textarea id='texto' rows='4' cols='30' maxlength='500' placeholder='Escreva seu texto aqui'></textarea></td>
+                <td align='center' colspan='2'><textarea name='texto' rows='4' cols='30' maxlength='500' placeholder='Escreva seu texto aqui'></textarea></td>
             </tr>
             <tr>
                 <td align='center' colspan='2'><input type='submit' value='Enviar'></td>
