@@ -1,10 +1,5 @@
 <?php
 	session_start();
-	if(!isset($_SESSION['usuario_sessao'])){
-        $_SESSION["usuario_sessao"] = "";
-        $_SESSION["tipo_usuario"] = "";
-        $_SESSION["compra"] = "";
-    }
     
 	//database information
 	$servername = "localhost";

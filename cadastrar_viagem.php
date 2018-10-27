@@ -1,9 +1,10 @@
 <?php
     session_start();
-	if(!isset($_SESSION['usuario_sessao'])){
-		$_SESSION["usuario_sessao"] = "";
+    if(!isset($_SESSION['usuario_id']))
+        $_SESSION['usuario_id'] = '';
+    if(!isset($_SESSION['tipo_usuario']))
 		$_SESSION["tipo_usuario"] = "";
-    }
+	
     $servername = "localhost";
 	$username = "root";
 	$password = "123456";
