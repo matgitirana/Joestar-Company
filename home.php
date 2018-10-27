@@ -18,7 +18,7 @@
 		die("Connection failed: " . $conn->connect_error);
 	}
 
-    //seleciona todas as viagens que não são viagem dos sonhos
+    //seleciona todas as viagens
     $sql="select id, destino, status, diarias, caminho_foto from Viagem;";
     $sqlResult = $conn->query($sql);
     
@@ -36,10 +36,29 @@
         <div id='topo'>
             <ul id='menu'>
                 <?php
-                    if($_SESSION['usuario_sessao'] == ''){
-                        echo "<li><a href='login.php'>Login</a></li>";
-                    } else{
-                        echo "<li><a href='logout.php'>Logout</a></li>";
+                    if($_SESSION['tipo_usuario'] == ""){
+                        echo "
+                        <li><a href='home.php'>Home</a></li>
+                        <li><a href='consultar_viagens.php'>Viagens</a></li>
+                        <li><a href='login.php'>Login</a></li>
+                        ";
+                    } else if($_SESSION['tipo_usuario'] == 'cliente'){
+                        echo "
+                        <li><a href='home.php'>Home</a></li>
+                        <li><a href='consultar_viagens.php'>Viagens</a></li>
+                        <li><a href='ver_perfil.php'>Perfil</a></li>
+                        <li><a href='logout.php'>Logout</a></li>
+                        ";
+                    } else if($_SESSION['tipo_usuario'] == 'adm'){
+                        echo "
+                        <li><a href='home.php'>Home</a></li>
+                        <li><a href='consultar_viagens.php'>Viagens</a></li>
+                        <li><a href='ver_perfil.php'>Perfil</a></li>
+                        <li><a href='ver_usuarios.php'>Usuários</a></li>
+                        <li><a href='cadastrar_viagem.php'>Nova viagem</a></li>
+                        <li><a href='cadastrar_usuario.php'>Novo adm</a></li>
+                        <li><a href='logout.php'>Logout</a></li>
+                        ";
                     }
                 ?>
 			</ul>
