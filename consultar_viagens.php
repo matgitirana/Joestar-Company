@@ -79,6 +79,12 @@
                                     <td>".$row["transporte"]."</td>
                                     <td>\$$preco</td>
                                     <td><a href=viagem_detalhes.php?id=". $row["id"] .">Detalhes da viagem</td>
+                                    ";
+                                    if($_SESSION['tipo_usuario']=='adm'){
+                                        echo"<td><a href=deletar_viagem.php?id=". $row["id"] .">Deletar viagem</td>
+                                        ";
+                                    }
+                                echo"
                                 </tr>
                             ";
                             }

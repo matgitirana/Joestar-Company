@@ -69,33 +69,33 @@
 
 				<tr>
 					<td><label>Nome</label></td>
-					<td><input type='text' size='30' name='nome' maxlength='50' value='". $consulta['nome'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='nome' maxlength='50' value='". $consulta['nome'] ."' disabled></td>
 				</tr>	
 				
 				<tr>
 					<td><label>Sobrenome</label></td>
-					<td><input type='text' size='30' name='sobrenome' maxlength='50' value='". $consulta['sobrenome'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='sobrenome' maxlength='50' value='". $consulta['sobrenome'] ."' disabled></td>
 				</tr>
 
 				<tr>
 					<td><label>Data de nascimento</label></td>
-					<td><input type='date' size='30' name='data_nascimento' maxlength='50' value='". $consulta['data_nascimento'] ."' readonly='readonly'></td>
+					<td><input type='date' size='30' name='data_nascimento' maxlength='50' value='". $consulta['data_nascimento'] ."' disabled></td>
 				</tr>
 
 				<tr>
 					<td><label>Endereço</label></td>
-					<td><input type='text' size='30' name='endereco' maxlength='50' value='". $consulta['endereco'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='endereco' maxlength='50' value='". $consulta['endereco'] ."' disabled></td>
 				</tr>
 
 				<tr>
 					<td><label>Telefone</label></td>
-					<td><input type='text' size='30' name='telefone' maxlength='20' value='". $consulta['telefone'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='telefone' maxlength='20' value='". $consulta['telefone'] ."' disabled></td>
 				</tr>
 				
 				<tr>
 					<td><label>Sexo</label>
                     <td>
-                    <input type='text' size='30' name='telefone' maxlength='20' value='". $consulta['sexo'] ."'readonly='readonly'>
+                    <input type='text' size='30' name='telefone' maxlength='20' value='". $consulta['sexo'] ."'disabled>
                     
 						
 					</td>
@@ -103,24 +103,24 @@
 				
 				<tr>
 					<td><label>RG</label></td>
-					<td><input type='text' size='30' name='rg' maxlength='30' value='". $consulta['rg'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='rg' maxlength='30' value='". $consulta['rg'] ."' disabled></td>
 				</tr>
 
 				<tr>
 					<td><label>CPF</label></td>
-					<td><input type='text' size='30' name='cpf' maxlength='11' minlength='11' value='". $consulta['cpf'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='cpf' maxlength='11' minlength='11' value='". $consulta['cpf'] ."' disabled></td>
 				</tr>
 				
 				
 				
 				<tr>
 					<td><label>Login</label></td>
-					<td><input type='text' size='30' name='usuario' maxlength='10' value='". $consulta['login'] ."' readonly='readonly'></td>
+					<td><input type='text' size='30' name='usuario' maxlength='10' value='". $consulta['login'] ."' disabled></td>
 				</tr>
 				
 				<tr>
 					<td><label>Senha</label></td>
-					<td><input type='password' size='30' name='senha' minlength='5' maxlength='20' value='". $consulta['senha'] ."' readonly='readonly'></td>
+					<td><input type='password' size='30' name='senha' minlength='5' maxlength='20' value='". $consulta['senha'] ."' disabled></td>
                 </tr>
                 <tr>
 					<td><label>Foto</label></td>
