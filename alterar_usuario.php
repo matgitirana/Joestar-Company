@@ -129,7 +129,7 @@
 				
 				<tr>
 					<td align='center' colspan='2'>
-						<input type='submit' value='Enviar'>
+						<input type='submit' value='Editar'>
 					</td>
 				</tr>
 				

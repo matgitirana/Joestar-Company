@@ -19,7 +19,13 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql="select * from Usuario where login = '".$_SESSION["usuario_sessao"]."';";
+    if($_SESSION["tipo_usuario"] = "cliente"){
+		$usuario = $_SESSION["usuario_sessao"];
+	} else if($_SESSION["tipo_usuario"] = "admin"){
+		$usuario = $_GET['usuario'];
+	}
+
+    $sql="select * from Usuario where login = '".$usuario."';";
     $sqlResult = mysqli_query($conn,$sql);
     $consulta = mysqli_fetch_assoc($sqlResult);
     
@@ -54,9 +60,12 @@
         <?php
 
         echo "
-        	<form action='alterar_usuario2.php' method='post' enctype='multipart/form-data'>
+        	<form action='deletar_usuario2.php' method='post' enctype='multipart/form-data'>
 			<table align='center' border='0' width =35%>
 
+                <tr>
+                    <td colspan='2' align='center'><h2>Você quer mesmo excluir esse perfil?</h2></td>
+                </tr>
 
 				<tr>
 					<td><label>Nome</label></td>
@@ -119,12 +128,10 @@
 				</tr>
 				
 				<tr>
-					<td align='right' >
-						<a href=alterar_usuario.php>Editar perfil</a>
+                    <td align='center' colspan='2'>
+                        <input type='submit' value='Excluir'>
                     </td>
-                    <td align='center'>
-						<a href=deletar_usuario.php>Excluir perfil</a>
-					</td>
+                    
 				</tr>
                 
                 
