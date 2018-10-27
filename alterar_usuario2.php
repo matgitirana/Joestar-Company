@@ -53,25 +53,25 @@
 
     $cadastro_valido = true;	
     //check if CPF is already registered
-    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."';";
+    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdCpf = $consulta['quantidade'];
 
     //check if RG is already registered
-    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."';";
+    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdRg = $consulta['quantidade'];
     
     //check if login is already registered
-    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."';";
+    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdLogin = $consulta['quantidade'];
     $today = date("Y-m-d");
 
-    $sql="select id, rg, cpf, login, caminho_foto from Usuario where login = '".$_SESSION["usuario_sessao"]."';";
+    $sql="select id, rg, cpf, login, caminho_foto from Usuario where id = '".$_SESSION["usuario_id"]."';";
     $sqlResultado = $conn->query($sql);
     $informacao_atual = mysqli_fetch_assoc($sqlResultado);
         

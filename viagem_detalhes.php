@@ -19,7 +19,7 @@
     }
     $id = $_GET["id"];
 
-    //seleciona todas as viagens que não são viagem dos sonhos
+    //seleciona todas as informações dessa viagem
     $sql="select * from Viagem where id=$id;";
     $sqlResult = $conn->query($sql);
 
@@ -72,7 +72,6 @@
         <?php
         if($sqlResult->num_rows>0){
             $viagem = $sqlResult->fetch_assoc();
-                if($viagem["status"]=='1'){
                     //preço do transporte
                     $sql="select preco from Transporte where transporte='". $viagem["transporte"] ."';";
                     $preco_select = $conn->query($sql);
@@ -130,7 +129,6 @@
                         </form>
                     </td>
         </tr>";
-        }
         if($_SESSION["tipo_usuario"]=="cliente"){
             echo"
             <form action='criar_comentario.php' method='post'>
@@ -150,7 +148,7 @@
             ";
         }
 
-        $sql = "select u.login as usuario, c.texto as texto, u.status as status from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id.";";
+        $sql = "select u.login as usuario, c.texto as texto from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id." and u.status='1';";
         $comentarioResult = $conn->query($sql);
         if($comentarioResult->num_rows>0){
             echo"
@@ -167,7 +165,6 @@
             ";
 
             while( $comentario = $comentarioResult->fetch_assoc()){
-                if($comentario["status"]=='1'){
 
                     echo"
                     
@@ -181,7 +178,6 @@
                     "
                     ;
                 }
-            }
         }
         echo"
         </table>

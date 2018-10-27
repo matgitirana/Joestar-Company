@@ -3,7 +3,11 @@
     if(!isset($_SESSION['usuario_id']))
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
-        $_SESSION["tipo_usuario"] = "";
+		$_SESSION["tipo_usuario"] = "";
+		
+	if($_SESSION['usuario_id']!='' && $_SESSION['tipo_usuario']='cliente'){
+		header("Location: home.php");
+	}
 ?>
 
 <html>

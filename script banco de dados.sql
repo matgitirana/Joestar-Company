@@ -57,7 +57,7 @@ create table JoestarCompany.Comentario(
 
 
 insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, status, login, senha, caminho_foto)
-values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_ususario_1.jpg');
+values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg');
 
 insert into JoestarCompany.Transporte(transporte, preco, status) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
 

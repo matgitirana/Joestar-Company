@@ -18,8 +18,8 @@
 		die("Connection failed: " . $conn->connect_error);
 	}
 
-    //seleciona todas as viagens que não são viagem dos sonhos
-    $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem;";
+    //seleciona todas as viagens que disponíveis
+    $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem where status='1';";
     $sqlResult = $conn->query($sql);
     
     $preco = 0;
@@ -83,7 +83,6 @@
                     //mostra todas as viagens disponíveis
                     if($sqlResult->num_rows>0){
                         while($row = $sqlResult->fetch_assoc()){
-                            if($row["status"]=='1'){
                                 //preço do transporte
                                 $sql="select preco from Transporte where transporte='". $row["transporte"] ."';";
                                 $preco_select = $conn->query($sql);
@@ -107,7 +106,6 @@
                                 </tr>
                             ";
                             }
-                        }
                     }
                 ?>
         </td>

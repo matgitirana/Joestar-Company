@@ -19,7 +19,7 @@
 	}
 
     //seleciona todas as viagens
-    $sql="select id, destino, status, diarias, caminho_foto from Viagem;";
+    $sql="select id, destino, status, diarias, caminho_foto from Viagem where status='1';";
     $sqlResult = $conn->query($sql);
     
     $preco = 0;
@@ -82,7 +82,6 @@
                             </tr>
             ";
             while($row = $sqlResult->fetch_assoc()){
-                if($row["status"]=='1'){
                     echo"
 
                             <tr align='center'>   
@@ -90,7 +89,6 @@
                                 <td width='50%' align='left'>Viagem para ".$row['destino']." com estadia de ".$row['diarias']." dias.</td>
                             </tr>
                     ";
-                }
             }
         }    
         ?>

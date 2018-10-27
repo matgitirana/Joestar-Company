@@ -19,7 +19,7 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql="select * from Usuario;";
+    $sql="select * from Usuario where status='1';";
 	$sqlResult = $conn->query($sql);
 	
 	function sexo_string($sexo){
@@ -101,7 +101,6 @@
 				";
 				if($sqlResult->num_rows>0){
 					while($row = $sqlResult->fetch_assoc()){
-						if($row["status"]=='1'){
 							echo "
                                 <tr align='center'>   
                                     <td>".$row["nome"]."</td>
@@ -128,7 +127,6 @@
 
 
 						}
-					}
 				}
 
 				echo "</table>";
