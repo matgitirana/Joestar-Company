@@ -124,10 +124,10 @@
 				
 				<tr>
 					<td align='right' >
-						<a href=alterar_usuario>Editar perfil</a>
+						<a href=alterar_usuario.php>Editar perfil</a>
                     </td>
                     <td align='center'>
-						<a href=deletar_usuario>Excluir perfil</a>
+						<a href=deletar_usuario.php>Excluir perfil</a>
 					</td>
 				</tr>
                 
