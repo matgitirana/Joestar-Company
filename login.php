@@ -29,7 +29,7 @@
 				<li><label>Senha</label>
 				<input type="password" size="30" name="senha" minlength="5" maxlength="20"></li>
 				<li><input type="submit" value="Enviar"></li>
-				<li><p>Não possui cadastro? Clique <a href='cadastro.php'>aqui</a></p></li>
+				<li><p>Não possui cadastro? Clique <a href='cadastrar_usuario.php'>aqui</a></p></li>
 				</form>
 			</div>
 

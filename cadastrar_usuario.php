@@ -21,7 +21,7 @@
 			</ul>
         </div>
 
-        	<form action="cadastro2.php" method="post" enctype='multipart/form-data'>
+        	<form action="cadastrar_usuario2.php" method="post" enctype='multipart/form-data'>
 			<table align="center" border="0" width =30%>
 
 				<tr>
