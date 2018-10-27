@@ -137,6 +137,9 @@
             <tr>
                 <td align='center' colspan='2'>Gostaria de deixar uma sugestão ou uma dúvida?</td>
             </tr>
+
+            <input type='hidden' name='viagem_id' value='".$id."'>
+
             <tr>
                 <td align='center' colspan='2'><textarea name='texto' rows='4' cols='30' maxlength='500' placeholder='Escreva seu texto aqui'></textarea></td>
             </tr>
