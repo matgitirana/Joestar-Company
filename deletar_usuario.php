@@ -12,11 +12,11 @@
 	$dbname = "JoestarCompany";
 
 	//Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	//Checa conexão com o banco
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
     }
 
 	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil dele ou do id da url 
@@ -29,10 +29,10 @@
 
 	//Informações do usuário
     $sql="select * from Usuario where id = '". $usuario_id ."' and status='1';";
-	$sqlResult = mysqli_query($conn,$sql);
+	$sql_resultado = mysqli_query($conn,$sql);
 	//Impedir que um adm exclua outro adm; Impedir que um cliente exclua qualquer conta que não seja a própria
-	if(mysqli_num_rows($sqlResult)>0){
-		$consulta = mysqli_fetch_assoc($sqlResult);
+	if(mysqli_num_rows($sql_resultado)>0){
+		$consulta = mysqli_fetch_assoc($sql_resultado);
 		if(($_SESSION['tipo_usuario']=='adm' && $consulta['tipo']=='cliente')||($_SESSION['usuario_id']==$consulta['id'])){
 			//Coloca a string certa para o sexo a ser mostrado
 			if($consulta["sexo"] == "f"){

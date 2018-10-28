@@ -12,11 +12,11 @@
 	$dbname = "JoestarCompany";
 
 	//Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	//Checa conexão com o banco
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
     }
 
     //ID da viagem
@@ -24,7 +24,7 @@
 
     //seleciona todas as informações dessa viagem
     $sql="select * from Viagem where id=$id;";
-    $sqlResult = $conn->query($sql);
+    $sql_resultado = mysqli_query($conn,$sql);
 ?>
 
 <html>
@@ -71,11 +71,11 @@
 
         <?php
         //Mostra todas as informações da viagem se ela existir
-        if($sqlResult->num_rows>0){
-            $viagem = $sqlResult->fetch_assoc();
+        if(mysqli_num_rows($sql_resultado)>0){
+            $viagem = $sql_resultado->fetch_assoc();
             //Busca preço do transporte no banco
             $sql="select preco from Transporte where transporte='". $viagem["transporte"] ."';";
-            $preco_select = $conn->query($sql);
+            $preco_select = mysqli_query($conn,$sql);
             $preco_transporte = $preco_select->fetch_assoc();
             //Calcula preço
             $preco = $viagem["diarias"]*$viagem["preco_diaria"]+$preco_transporte["preco"]+$viagem["preco_translado"];
@@ -152,7 +152,7 @@
 
             //Se existirem comentários sobre a viagem feita por usuários ainda ativos, mostra
             $sql = "select u.login as usuario, c.texto as texto from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id." and u.status='1';";
-            $comentarioResult = $conn->query($sql);
+            $comentarioResult = mysqli_query($conn,$sql);
             if($comentarioResult->num_rows>0){
                 echo"
                 <tr>

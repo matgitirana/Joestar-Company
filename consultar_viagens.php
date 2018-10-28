@@ -12,16 +12,16 @@
 	$dbname = "JoestarCompany";
 
 	//Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	//Checa conexão com o banco
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
     }
 
     //seleciona todas as viagens que disponíveis
     $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem where status='1';";
-    $sqlResult = $conn->query($sql);
+    $sql_resultado = mysqli_query($conn,$sql);
 ?>
 
 <html>
@@ -81,12 +81,12 @@
 
                 <?php
                     //Mostra informações de todas as viagens disponíveis
-                    if($sqlResult->num_rows>0){ 
+                    if(mysqli_num_rows($sql_resultado)>0){ 
                         $preco = 0;
-                        while($row = $sqlResult->fetch_assoc()){
+                        while($row = $sql_resultado->fetch_assoc()){
                                 //Preço do transporte
                                 $sql="select preco from Transporte where transporte='". $row["transporte"] ."';";
-                                $preco_select = $conn->query($sql);
+                                $preco_select = mysqli_query($conn,$sql);
                                 $preco_transporte = $preco_select->fetch_assoc();
                                 //Calcula preço
                                 $preco = $row["diarias"]*$row["preco_diaria"]+$preco_transporte["preco"]+$row["preco_translado"];

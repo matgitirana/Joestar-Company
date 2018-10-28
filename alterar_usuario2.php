@@ -8,11 +8,11 @@
 	$dbname = "JoestarCompany";
 
 	// Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	// Checa a conexão
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
     } 
     
     // Função para validar o cpf
@@ -56,26 +56,26 @@
 
     // Usado para checar se já existe um usuário com o cpf informado
     $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdCpf = $consulta['quantidade'];
 
     // Usado para checar se já existe um usuário com o rg informado
     $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdRg = $consulta['quantidade'];
     
     // Usado para checar se já existe um usuário com o login informado
     $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdLogin = $consulta['quantidade'];
 
     // Informações atuais do usuário
     $sql="select id, rg, cpf, login, caminho_foto from Usuario where id = '".$_SESSION["usuario_id"]."';";
-    $sqlResultado = $conn->query($sql);
-    $informacao_atual = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $informacao_atual = mysqli_fetch_assoc($sql_resultadoado);
         
     if(validar_cpf($cpf)==false){
 		$cadastro_valido=false;
@@ -117,7 +117,7 @@
 		
 		// Atualiza o usuário com todas as informações
         $sql="update Usuario set cpf = '".$cpf."', rg = '".$rg."', nome = '".$nome."', sobrenome = '".$sobrenome."', sexo = '".$sexo."', endereco = '".$endereco."', telefone = '".$telefone."', data_nascimento = '".$data_nascimento."', login = '".$usuario."',  senha = '".$senha."', caminho_foto = '".$caminho_foto."' where id= ".$informacao_atual['id'].";";
-        $conn->query($sql);
+        mysqli_query($conn,$sql);
             
         header("Location: home.php");
     } else{

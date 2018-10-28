@@ -12,16 +12,16 @@
 	$dbname = "JoestarCompany";
 
 	//Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	//Checa conexão com o banco
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
     }
 
     //seleciona todas as viagens
     $sql="select id, destino, status, diarias, caminho_foto from Viagem where status='1';";
-    $sqlResult = $conn->query($sql);
+    $sql_resultado = mysqli_query($conn,$sql);
     
     $preco = 0;
 ?>
@@ -73,7 +73,7 @@
 
         <?php
         //Mostra foto e destino das viagens disponíveis
-        if($sqlResult->num_rows>0){
+        if(mysqli_num_rows($sql_resultado)>0){
             echo"
                     <table align='center' border='0' width =100%>
                     <tr>
@@ -84,7 +84,7 @@
                                 <td colspan='8' ><h1>Algumas de nossas viagens</h1></td>
                             </tr>
             ";
-            while($row = $sqlResult->fetch_assoc()){
+            while($row = $sql_resultado->fetch_assoc()){
                     echo"
 
                             <tr align='center'>   

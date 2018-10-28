@@ -8,11 +8,11 @@
 	$dbname = "JoestarCompany";
 
 	// Cria conexão com o banco
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 	// Checa conexão
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if (mysqli_connect_error()) {
+		die("Connection failed: " . mysqli_connect_error());
 	} 
     
     //função para validar o cpf
@@ -57,20 +57,20 @@
 
     // Usado para checar se já existe um usuário com o cpf informado
     $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdCpf = $consulta['quantidade'];
 
     // Usado para checar se já existe um usuário com o rg informado
     $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdRg = $consulta['quantidade'];
     
     // Usado para checar se já existe um usuário com o login informado
     $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
-    $sqlResultado = $conn->query($sql);
-    $consulta = mysqli_fetch_assoc($sqlResultado);
+    $sql_resultadoado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultadoado);
     $qtdLogin = $consulta['quantidade'];
 
     if(validar_cpf($cpf)==false){
@@ -106,8 +106,8 @@
     if($cadastro_valido==true){
         //Verifica qual será o id do novo usuário para usar no caminho da foto
         $sql="select count(id) as quantidade from Usuario;";
-        $sqlResultado = $conn->query($sql);
-        $consulta = mysqli_fetch_assoc($sqlResultado);
+        $sql_resultadoado = mysqli_query($conn,$sql);
+        $consulta = mysqli_fetch_assoc($sql_resultadoado);
         $id_usuario = $consulta['quantidade']+1;
 
         //Faz upload da foto
@@ -127,7 +127,7 @@
 		
 		// Insere usuário no banco
         $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, status, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$status."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
-        $conn->query($sql);
+        mysqli_query($conn,$sql);
         
         header("Location: login.php");
     } else{
