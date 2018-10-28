@@ -17,29 +17,28 @@
 	// Checa a conexão
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-    }
-	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil do id da url
-	if($_SESSION["tipo_usuario"] = "cliente"){
-		$usuario_id = $_SESSION["usuario_id"];
-	} else if($_SESSION["tipo_usuario"] = "admin"){
-		$usuario_id = $_GET['id'];
 	}
-
-	//Informações do usuário
-    $sql="select * from Usuario where id = '". $usuario_id ."';";
-    $sqlResult = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sqlResult);
 	
+	//ID do usuário logado	
+	$usuario_id = $_SESSION["usuario_id"];
+	
+	//Informações do usuário
+    $sql="select * from Usuario where id = '". $usuario_id ."' and status ='1';";
+	$sqlResult = mysqli_query($conn,$sql);
+	$consulta = mysqli_fetch_assoc($sqlResult);	
+
 	//verifica o sexo e deixa os textos prontos para serem usados no html (input radio)
-    $f ="";$m =""; $o="";
-    
-    if($consulta["sexo"] == "f"){
-        $f = "checked='checked'";
-    } else if($consulta["sexo"] == "m"){
-        $m = "checked='checked'";
-    } else {
-        $o = "checked='checked'";
-    }    
+	$f ="";$m =""; $o="";
+	
+	if($consulta["sexo"] == "f"){
+		$f = "checked='checked'";
+	} else if($consulta["sexo"] == "m"){
+		$m = "checked='checked'";
+	} else {
+		$o = "checked='checked'";
+	}
+	
+	    
     
 ?>
 
@@ -87,8 +86,8 @@
         <?php
 
 		//form com as informações atuais preenchidas
-        echo "
-        	<form action='alterar_usuario2.php' method='post' enctype='multipart/form-data'>
+		echo "
+			<form action='alterar_usuario2.php' method='post' enctype='multipart/form-data'>
 			<table align='center' border='0' width =30%>
 
 
@@ -158,8 +157,9 @@
 				</tr>
 				
 			</table>
-		    </form>
-        ";
+			</form>
+		";
+        
         ?>
 
 		<div id='rodape'>

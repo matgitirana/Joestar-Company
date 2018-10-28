@@ -116,7 +116,7 @@
         $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
         
-        //Status do usuário: ativo
+        //Status 1 = ativo
         $status = '1';
         //Adm só pode criar usuário adm; usuário não logado só pode se cadastrar como cliente
         if($_SESSION["tipo_usuario"] == "adm"){
@@ -131,6 +131,6 @@
         
         header("Location: login.php");
     } else{
-        header("Location: cadastro.php");
+        header("Location: cadastrar_usuario.php");
     }
 ?>

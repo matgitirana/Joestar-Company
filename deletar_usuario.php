@@ -20,25 +20,34 @@
     }
 
 	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil do id da url
-    if($_SESSION["tipo_usuario"] = "cliente"){
+    if($_SESSION["tipo_usuario"] == "cliente"){
 		$usuario_id = $_SESSION["usuario_id"];
-	} else if($_SESSION["tipo_usuario"] = "admin"){
+	} else if($_SESSION["tipo_usuario"] == "adm"){
 		$usuario_id = $_GET['id'];
 	}
 
+	$usuario_existe=false;
+
 	//Informações do usuário
-    $sql="select * from Usuario where id = '". $usuario_id ."';";
-    $sqlResult = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sqlResult);
-	
-	//Coloca a string certa para o sexo a ser mostrado
-    if($consulta["sexo"] == "f"){
-        $consulta["sexo"] = "feminino";
-    } else if($consulta["sexo"] == "m"){
-        $consulta["sexo"] = "masculino";
-    } else {
-        $consulta["sexo"] = 'Outro';
-    }    
+    $sql="select * from Usuario where id = '". $usuario_id ."' and status='1';";
+	$sqlResult = mysqli_query($conn,$sql);
+	//Impedir que um adm exclua outro adm; Impedir que um cliente exclua qualquer conta que não seja a própria
+	if(mysqli_num_rows($sqlResult)>0){
+		$consulta = mysqli_fetch_assoc($sqlResult);
+		if(($_SESSION['tipo_usuario']=='adm' && $consulta['tipo']=='cliente')||($_SESSION['usuario_id']==$consulta['id'])){
+			//Coloca a string certa para o sexo a ser mostrado
+			if($consulta["sexo"] == "f"){
+				$consulta["sexo"] = "feminino";
+			} else if($consulta["sexo"] == "m"){
+				$consulta["sexo"] = "masculino";
+			} else {
+				$consulta["sexo"] = 'Outro';
+			}
+			$usuario_existe=true;
+		}
+		
+	}
+        
     
 ?>
 
@@ -85,7 +94,8 @@
 
         <?php
 		//Mostra todas as informações do usuário e não deixa ele editar
-        echo "
+		if($usuario_existe){
+			echo "
         	<form action='deletar_usuario2.php' method='post' enctype='multipart/form-data'>
 			<table align='center' border='0' width =35%>
 
@@ -163,7 +173,11 @@
                 
 			</table>
 		    </form>
-        ";
+        	";
+		} else {
+			echo "Usuário inexistente";
+		}
+        
         ?>
 
 		<div id='rodape'>

@@ -5,7 +5,7 @@
     if(!isset($_SESSION['tipo_usuario']))
 		$_SESSION["tipo_usuario"] = "";
 		
-	if($_SESSION['usuario_id']!='' && $_SESSION['tipo_usuario']='cliente'){
+	if($_SESSION['usuario_id']!='' && $_SESSION['tipo_usuario']=='cliente'){
 		header("Location: home.php");
 	}
 ?>

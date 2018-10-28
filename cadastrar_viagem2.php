@@ -62,7 +62,7 @@
         $caminho_foto = $diretorio . 'viagem_id_' . $id_viagem. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
         
-        //Status da viagem: ativa
+        //Status 1 = ativo
         $status = '1';
 
         if($preco_translado==''){
