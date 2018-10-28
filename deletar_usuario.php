@@ -19,10 +19,9 @@
 		die("Connection failed: " . $conn->connect_error);
     }
 
-	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil do id da url
-    if($_SESSION["tipo_usuario"] == "cliente"){
-		$usuario_id = $_SESSION["usuario_id"];
-	} else if($_SESSION["tipo_usuario"] == "adm"){
+	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil dele ou do id da url 
+	$usuario_id = $_SESSION["usuario_id"];
+	if($_SESSION["tipo_usuario"] == "adm" && isset($_GET['id'])){
 		$usuario_id = $_GET['id'];
 	}
 
