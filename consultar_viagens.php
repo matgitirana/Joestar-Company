@@ -5,24 +5,23 @@
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
 
+    //Informações do banco de dados
     $servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	//Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	//Checa conexão com o banco
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-	}
+    }
 
     //seleciona todas as viagens que disponíveis
     $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem where status='1';";
     $sqlResult = $conn->query($sql);
-    
-    $preco = 0;
 ?>
 
 <html>
@@ -36,6 +35,7 @@
         <div id='topo'>
             <ul id='menu'>
                 <?php
+                    //Menu diferente de acordo com o tipo de usuário
                     if($_SESSION['tipo_usuario'] == ""){
                         echo "
                         <li><a href='home.php'>Home</a></li>
@@ -80,14 +80,15 @@
                 </tr>
 
                 <?php
-                    //mostra todas as viagens disponíveis
-                    if($sqlResult->num_rows>0){
+                    //Mostra informações de todas as viagens disponíveis
+                    if($sqlResult->num_rows>0){ 
+                        $preco = 0;
                         while($row = $sqlResult->fetch_assoc()){
-                                //preço do transporte
+                                //Preço do transporte
                                 $sql="select preco from Transporte where transporte='". $row["transporte"] ."';";
                                 $preco_select = $conn->query($sql);
                                 $preco_transporte = $preco_select->fetch_assoc();
-                                //calcula preço
+                                //Calcula preço
                                 $preco = $row["diarias"]*$row["preco_diaria"]+$preco_transporte["preco"]+$row["preco_translado"];
                                 echo "
                                 <tr align='center'>   

@@ -21,7 +21,8 @@
 
         <div id="topo">
             <ul id="menu">
-			<?php
+			    <?php
+                    //Menu diferente de acordo com o tipo de usuário
                     if($_SESSION['tipo_usuario'] == ""){
                         echo "
                         <li><a href='home.php'>Home</a></li>

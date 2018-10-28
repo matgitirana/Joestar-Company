@@ -1,20 +1,21 @@
 <?php
 	session_start();
 
-    //database information
+    // Informação do banco de dados
 	$servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	// Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	// Checa a conexão
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-	} 
+    } 
     
+    // Função para validar o cpf
     function validar_cpf($cpf){
         //Verifica se o tamanho está correto
         if (strlen($cpf) != 11) {
@@ -37,7 +38,7 @@
         return true;
     }
 
-    //user input
+    // Entrada do usuário
     $rg=$_POST['rg'];
 	$cpf=$_POST['cpf'];
     $nome=$_POST['nome'];
@@ -48,29 +49,30 @@
 	$usuario=$_POST['usuario'];
 	$senha=$_POST['senha'];
     $telefone=$_POST['telefone'];
-    
-    //check inputs
 
-    $cadastro_valido = true;	
-    //check if CPF is already registered
+    //Validação das informações
+    $cadastro_valido = true;
+    $today = date("Y-m-d");
+
+    // Usado para checar se já existe um usuário com o cpf informado
     $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdCpf = $consulta['quantidade'];
 
-    //check if RG is already registered
+    // Usado para checar se já existe um usuário com o rg informado
     $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdRg = $consulta['quantidade'];
     
-    //check if login is already registered
+    // Usado para checar se já existe um usuário com o login informado
     $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
     $sqlResultado = $conn->query($sql);
     $consulta = mysqli_fetch_assoc($sqlResultado);
     $qtdLogin = $consulta['quantidade'];
-    $today = date("Y-m-d");
 
+    // Informações atuais do usuário
     $sql="select id, rg, cpf, login, caminho_foto from Usuario where id = '".$_SESSION["usuario_id"]."';";
     $sqlResultado = $conn->query($sql);
     $informacao_atual = mysqli_fetch_assoc($sqlResultado);
@@ -104,6 +106,7 @@
     }
     
     if($cadastro_valido==true){
+        // Se não tiver foto nova, fica a anterior; Se tiver foto nova, faz o upload dela
         $caminho_foto = $informacao_atual['caminho_foto'];
         if(filesize($_FILES['foto']!=0)){
             $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
@@ -112,7 +115,7 @@
             move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto); //Fazer upload do arquivo
         }
 		
-		//atualiza o banco
+		// Atualiza o usuário com todas as informações
         $sql="update Usuario set cpf = '".$cpf."', rg = '".$rg."', nome = '".$nome."', sobrenome = '".$sobrenome."', sexo = '".$sexo."', endereco = '".$endereco."', telefone = '".$telefone."', data_nascimento = '".$data_nascimento."', login = '".$usuario."',  senha = '".$senha."', caminho_foto = '".$caminho_foto."' where id= ".$informacao_atual['id'].";";
         $conn->query($sql);
             

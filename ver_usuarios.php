@@ -5,23 +5,25 @@
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
 
-    //database information
-	$servername = "localhost";
+    //Informações do banco de dados
+    $servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	//Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	//Checa conexão com o banco
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
     }
 
+	//Seleciona usuários ativos
     $sql="select * from Usuario where status='1';";
 	$sqlResult = $conn->query($sql);
 	
+	//Função para colocar a string correta do sexo
 	function sexo_string($sexo){
 		if($sexo == "f"){
 			$sexo = "feminino";
@@ -48,6 +50,7 @@
         <div id="topo">
             <ul id="menu">
 				<?php
+					//Menu diferente de acordo com o tipo de usuário
                     if($_SESSION['tipo_usuario'] == ""){
                         echo "
                         <li><a href='home.php'>Home</a></li>
@@ -78,6 +81,7 @@
 
         <?php
 
+		//Mostra todas as informações de todos os usuários ativos
         echo "
 			<table align='center' border='0' width =100%>
 

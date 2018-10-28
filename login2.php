@@ -1,24 +1,24 @@
 <?php
 	session_start();
-    
-	//database information
-	$servername = "localhost";
+	
+	//Informações do banco de dados
+    $servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	//Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	//Checa conexão com o banco
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-	} 
+    } 
     
-    //user input
+    //Entrada do usuário
 	$usuario=$_POST['usuario'];
     $senha=$_POST['senha'];
-    //check login
+    //Valida login
     $login_valido = true;		
     $sql = "select id, senha, status, tipo from Usuario where login='".$usuario."';";
 	$sqlResultado = $conn->query($sql);
@@ -27,8 +27,6 @@
 		$login_valido=false;
 	}
     
-
-    //redirect to home    
     if($login_valido){
         $_SESSION["usuario_id"] = $consulta['id'];
 		$_SESSION["tipo_usuario"] = $consulta["tipo"];

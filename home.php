@@ -5,18 +5,19 @@
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
         
+    //Informações do banco de dados
     $servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	//Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	//Checa conexão com o banco
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-	}
+    }
 
     //seleciona todas as viagens
     $sql="select id, destino, status, diarias, caminho_foto from Viagem where status='1';";
@@ -36,6 +37,7 @@
         <div id='topo'>
             <ul id='menu'>
                 <?php
+                    //Menu diferente de acordo com o tipo de usuário
                     if($_SESSION['tipo_usuario'] == ""){
                         echo "
                         <li><a href='home.php'>Home</a></li>
@@ -70,6 +72,7 @@
         <p align='center'><img width ='30%' src='fotos/logo.png' alt='logo'></p>
 
         <?php
+        //Mostra foto e destino das viagens disponíveis
         if($sqlResult->num_rows>0){
             echo"
                     <table align='center' border='0' width =100%>

@@ -5,32 +5,33 @@
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
 
-    //database information
-	$servername = "localhost";
+    //Informações do banco de dados
+    $servername = "localhost";
 	$username = "root";
 	$password = "123456";
 	$dbname = "JoestarCompany";
 
-	// Create connection
+	//Cria conexão com o banco
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
-	// Check connection
+	//Checa conexão com o banco
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
     }
 
+	// Se cliente entrar, mostra perfil dele; Se admin entrar, mostra perfil do id da url
     if($_SESSION["tipo_usuario"] = "cliente"){
 		$usuario_id = $_SESSION["usuario_id"];
 	} else if($_SESSION["tipo_usuario"] = "admin"){
 		$usuario_id = $_GET['id'];
 	}
 
+	//Informações do usuário
     $sql="select * from Usuario where id = '". $usuario_id ."';";
     $sqlResult = mysqli_query($conn,$sql);
     $consulta = mysqli_fetch_assoc($sqlResult);
-    
-    $sexo = $consulta["sexo"];
-    
+	
+	//Coloca a string certa para o sexo a ser mostrado
     if($consulta["sexo"] == "f"){
         $consulta["sexo"] = "feminino";
     } else if($consulta["sexo"] == "m"){
@@ -53,6 +54,7 @@
         <div id="topo">
             <ul id="menu">
 				<?php
+					//Menu diferente de acordo com o tipo de usuário
                     if($_SESSION['tipo_usuario'] == ""){
                         echo "
                         <li><a href='home.php'>Home</a></li>
@@ -82,7 +84,7 @@
         </div>
 
         <?php
-
+		//Mostra todas as informações do usuário e não deixa ele editar
         echo "
         	<form action='deletar_usuario2.php' method='post' enctype='multipart/form-data'>
 			<table align='center' border='0' width =35%>
