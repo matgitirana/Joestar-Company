@@ -17,8 +17,8 @@
 	//ID da viagem
     $id = $_POST['id'];
     
-    //Status 0 = inativo
-    $sql = "update Viagem set status= '0' where  id=".$id.";";
+    //disponibilidade 0 = inativo
+    $sql = "update Viagem set disponibilidade= '0' where  id=".$id.";";
     $sql_resultado = mysqli_query($conn,$sql);
     
     header("Location: home.php");

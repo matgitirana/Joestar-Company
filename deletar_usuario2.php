@@ -18,8 +18,8 @@
     //ID do usuário
     $id = $_POST['id'];
     
-    //Status 0 = inativo
-    $sql = "update Usuario set status= '0' where  id='".$id."';";
+    //disponibilidade 0 = inativo
+    $sql = "update Usuario set disponibilidade= '0' where  id='".$id."';";
     $sql_resultado = mysqli_query($conn,$sql);
     //Se o usuário excluído for o que estava logado, desloga
     if($id==$_SESSION["usuario_id"]){

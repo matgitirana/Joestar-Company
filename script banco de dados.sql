@@ -13,7 +13,7 @@ create table JoestarCompany.Usuario(
     telefone varchar(20) not null,
     data_nascimento date not null,
     tipo varchar(10) not null,
-    status char(1) not null,
+    disponibilidade char(1) not null,
     login varchar(10) not null,
     senha varchar(20) not null,
     caminho_foto varchar(60)  not null,
@@ -23,7 +23,7 @@ create table JoestarCompany.Usuario(
 create table JoestarCompany.Transporte(
     transporte varchar(50) not null,
     preco double not null,
-    status char(1) not null,
+    disponibilidade char(1) not null,
     constraint transporte_pk primary key(transporte)
 );
 
@@ -31,18 +31,31 @@ create table JoestarCompany.Viagem(
     id int AUTO_INCREMENT not null,
     destino varchar(30) not null,
     data_partida date not null,
-    diarias int not null,
     transporte varchar(50) not null,
-    translado char(3) not null,
-    hospedagem int not null,
-    passeios varchar(200),
-    status char(1) not null,
-    preco_diaria double not null,
+    translado bool not null,
+    disponibilidade char(1) not null,
     preco_translado double not null,
     caminho_foto varchar(60) not null,
     constraint viagem_pk primary key(id),
     constraint viagem_fk_transporte foreign key(transporte) references Transporte(transporte)
+);
 
+create table JoestarCompany.Passeio(
+    id int AUTO_INCREMENT not null,
+    id_viagem int not null,
+    descricao varchar(500) not null,
+    preco double not null,
+    constraint passeio_pk primary key(id),
+    constraint passeio_fk_viagem foreign key(id_viagem) references Viagem(id)
+);
+
+create table JoestarCompany.Hospedagem(
+    id int AUTO_INCREMENT not null,
+    id_viagem int not null,
+    estrelas int not null,
+    preco_diaria double not null,
+    constraint hospedagem_pk primary key(id),
+    constraint hospedagem_fk_viagem foreign key(id_viagem) references Viagem(id)
 );
 
 create table JoestarCompany.Comentario(
@@ -56,16 +69,20 @@ create table JoestarCompany.Comentario(
 );
 
 
-insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, status, login, senha, caminho_foto)
+insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login, senha, caminho_foto)
 values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg');
 
-insert into JoestarCompany.Transporte(transporte, preco, status) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
+insert into JoestarCompany.Transporte(transporte, preco, disponibilidade) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
 
-insert into JoestarCompany.Viagem(destino, data_partida, diarias, transporte, translado, hospedagem, passeios, status, preco_diaria, preco_translado, caminho_foto)
-values ('Paris', CURDATE() + INTERVAL 10 DAY, 15, 'avião', 'Sim', 3, 'Lalalalalalalalala', '1', 300, 200, 'fotos/viagens/viagem_id_1.jpg'), 
-('Londres', CURDATE() + INTERVAL 10 DAY, 15, 'avião', 'Sim', 3, 'Lelelelelelelelele', '1', 300, 400, 'fotos/viagens/viagem_id_2.jpg'), 
-('São Paulo', CURDATE() + INTERVAL 11 DAY, 14, 'trem', 'Sim', 3, 'Lilililililililili', '1', 300, 100, 'fotos/viagens/viagem_id_3.jpg'), 
-('Tóquio', CURDATE() + INTERVAL 60 DAY, 3, 'avião', 'Sim', 3, 'Lululululululululu', '1', 300, 500, 'fotos/viagens/viagem_id_4.jpg'), 
-('Rio de Janeiro', CURDATE() + INTERVAL 15 DAY, 15, 'ônibus', 'Não', 3, 'Lololololololololo', '1', 300, 0, 'fotos/viagens/viagem_id_5.jpg'), 
-('Boston', CURDATE() + INTERVAL 2 DAY, 15, 'avião', 'Sim', 3, 'Lololololululululu', '1', 300, 600, 'fotos/viagens/viagem_id_6.jpg'),
-('Roma', CURDATE() + INTERVAL 30 DAY, 20, 'navio', 'Sim', 3, 'Lilililililelelele', '1', 300, 200, 'fotos/viagens/viagem_id_7.jpg'); 
+insert into JoestarCompany.Viagem(destino, data_partida, transporte, translado,  disponibilidade,  preco_translado, caminho_foto)
+values ('Paris', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 200, 'fotos/viagens/viagem_id_1.jpg'), 
+('Londres', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 400, 'fotos/viagens/viagem_id_2.jpg'), 
+('São Paulo', CURDATE() + INTERVAL 11 DAY, 'trem', true, '1', 100, 'fotos/viagens/viagem_id_3.jpg'), 
+('Tóquio', CURDATE() + INTERVAL 60 DAY, 'avião', true, '1', 500, 'fotos/viagens/viagem_id_4.jpg'), 
+('Rio de Janeiro', CURDATE() + INTERVAL 15 DAY, 'ônibus', false, '1', 0, 'fotos/viagens/viagem_id_5.jpg'), 
+('Boston', CURDATE() + INTERVAL 2 DAY, 'avião', true, '1', 600, 'fotos/viagens/viagem_id_6.jpg'),
+('Roma', CURDATE() + INTERVAL 30 DAY, 'navio', true, '1', 200, 'fotos/viagens/viagem_id_7.jpg');
+
+insert into JoestarCompany.Passeio(id_viagem, descricao, preco) values (1, 'lalalalalalala', 500), (1, 'lelelelelele', 400), (2, 'Teste1', 500), (3, 'Text', 500), (4, 'Passeio', 500), (5, 'Coisa legal', 500), (6, 'Alguma coisa', 500);
+
+insert into JoestarCompany.Hospedagem(id_viagem, estrelas, preco_diaria) values (1, 3, 500), (1, 2, 400), (1, 5, 500), (3, 2, 500), (4, 4, 500), (5, 3, 500), (6, 1, 500);

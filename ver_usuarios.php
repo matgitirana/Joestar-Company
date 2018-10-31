@@ -20,7 +20,7 @@
     }
 
 	//Seleciona usuários ativos
-    $sql="select * from Usuario where status='1';";
+    $sql="select * from Usuario where disponibilidade='1';";
 	$sql_resultado = mysqli_query($conn,$sql);
 	
 	//Função para colocar a string correta do sexo
@@ -104,7 +104,7 @@
 				</tr>
 				";
 				if(mysqli_num_rows($sql_resultado)>0){
-					while($row = $sql_resultado->fetch_assoc()){
+					while($row = mysqli_fetch_assoc($sql_resultado)){
 							echo "
                                 <tr align='center'>   
                                     <td>".$row["nome"]."</td>

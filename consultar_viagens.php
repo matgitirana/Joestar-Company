@@ -19,8 +19,8 @@
 		die("Connection failed: " . mysqli_connect_error());
     }
 
-    //seleciona todas as viagens que disponíveis
-    $sql="select id, destino, data_partida, diarias, transporte, status,preco_diaria, preco_translado from Viagem where status='1';";
+    //seleciona todas as viagens disponíveis
+    $sql="select id, destino, data_partida, transporte, disponibilidade, preco_translado, caminho_foto from Viagem where disponibilidade='1';";
     $sql_resultado = mysqli_query($conn,$sql);
 ?>
 
@@ -71,10 +71,10 @@
                 <tr  align='center'>   
                     <td colspan='8' ><h1>Viagens oferecidas</h1></td>
                 </tr>
-                <tr align='center'>   
+                <tr align='center'>
+                    <th>Foto</th>
                     <th>Destino</th>
                     <th>Data de Partida</th>
-                    <th>Diárias</th>
                     <th>Transporte</th>
                     <th>Preço</th>
                 </tr>
@@ -83,21 +83,20 @@
                     //Mostra informações de todas as viagens disponíveis
                     if(mysqli_num_rows($sql_resultado)>0){ 
                         $preco = 0;
-                        while($row = $sql_resultado->fetch_assoc()){
+                        while($row = mysqli_fetch_assoc($sql_resultado)){
                                 //Preço do transporte
                                 $sql="select preco from Transporte where transporte='". $row["transporte"] ."';";
                                 $preco_select = mysqli_query($conn,$sql);
-                                $preco_transporte = $preco_select->fetch_assoc();
+                                $preco_transporte = mysqli_fetch_assoc($preco_select);
                                 //Calcula preço
-                                $preco = $row["diarias"]*$row["preco_diaria"]+$preco_transporte["preco"]+$row["preco_translado"];
+                                $preco = $preco_transporte["preco"]+$row["preco_translado"];
                                 echo "
                                 <tr align='center'>   
+                                    <td><a href=viagem_detalhes.php?id=". $row["id"] ."><img width='30%' src = '".$row["caminho_foto"]."' alt='foto da viagem'></a></td>
                                     <td>".$row["destino"]."</td>
                                     <td>".$row["data_partida"]."</td>
-                                    <td>".$row["diarias"]."</td>
                                     <td>".$row["transporte"]."</td>
                                     <td>\$$preco</td>
-                                    <td><a href=viagem_detalhes.php?id=". $row["id"] .">Detalhes da viagem</td>
                                     ";
                                     if($_SESSION['tipo_usuario']=='adm'){
                                         echo"<td><a href=deletar_viagem.php?id=". $row["id"] .">Deletar viagem</td>

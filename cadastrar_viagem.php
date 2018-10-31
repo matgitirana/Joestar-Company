@@ -63,7 +63,7 @@
 	</div>
 
 	<form action="cadastrar_viagem2.php" method="post" enctype='multipart/form-data'>
-		<table align="center" border="0" widtd=50%>
+		<table align="center" border="0" width=50%>
 
 			<tr>
 				<td><label>Destino</label></td>
@@ -76,19 +76,6 @@
 					<input type="date" size="30" name="data_partida">
 				</td>
 			</tr>
-			<tr>
-				<td><label>Diárias</label></td>
-				<td>
-					<input type="number" size="30" name="diarias" maxlengtd="2">
-				</td>
-			</tr>
-
-            <tr>
-				<td><label>Preço da diária</label></td>
-				<td>
-					<input type="number" size="30" name="preco_diaria" step="0.01">
-				</td>
-			</tr>
 
 			<tr>
 				<td><label>Tipo de transporte</label></td>
@@ -99,7 +86,7 @@
                         $sql = 'select transporte from Transporte;';
                         $sql_resultado = mysqli_query($conn,$sql);
                         if(mysqli_num_rows($sql_resultado)>0){
-                            while($transporte = $sql_resultado->fetch_assoc()){
+                            while($transporte = mysqli_fetch_assoc($sql_resultado)){
                                 echo"<option value='".$transporte['transporte']."'>".$transporte['transporte']."</option>";
                             }
                         }
@@ -111,30 +98,72 @@
 
 				<td><label>Translado</label></td>
 				<td>
-					<input type="radio" name="translado" value=Sim>Sim
-					<input type="radio" name="translado" value=Não checked="checked">Não
+					<input type="radio" name="translado" value=true onclick="translado_input()">Sim
+					<input type="radio" name="translado" value=false checked="checked" onclick="translado_input()">Não
 				</td>
 			</tr>
 
             <tr>
 				<td><label>Preço do translado</label></td>
 				<td>
-					<input type="number" size="30" name="preco_translado" step="0.01">
+					<input type="number" size="30" name="preco_translado" step="0.01" disabled>
 				</td>
 			</tr>
+
+			<!--Habilita registro de preço de diária se for selecionado que aquela viagem terá aquele níve de hotel-->
+			<script>
+				function translado_input(){
+					var radios = document.getElementsByName("translado");
+					var input = document.getElementsByName("preco_translado")[0];
+					for (var i = 0, length = radios.length; i < length; i++){
+						if (radios[i].checked && radios[i].value=='true'){
+							input.disabled = false;
+						} else if(radios[i].checked && radios[i].value=='false'){
+							input.value = '';
+							input.disabled = true;
+						}
+					}
+				}
+
+				function hospedagem_input(i) {
+					var checkBox = document.getElementsByName("hospedagem"+i)[0];
+					var input = document.getElementsByName("preco_diaria"+i)[0];
+					if (checkBox.checked == true){
+						input.disabled = false;;
+					} else {
+						input.value = 0;
+						input.disabled = true;
+					}
+				}
+			</script>
 
 			<tr>
 				<td><label>Hospedagem</label></td>
 				<td>
-					<select name='hospedagem'>
-						<option value="1">1 estrela</option>
-						<option value="2">2 estrelas</option>
-						<option value="3">3 estrelas</option>
-						<option value="4">4 estrelas</option>
-						<option value="5">5 estrelas</option>
-					</select>
+					<input type="checkbox" name="hospedagem1" value="1" onclick="hospedagem_input('1')">1 estrela
+					<input type="checkbox" name="hospedagem2" value="2" onclick="hospedagem_input('2')">2 estrelas
+					<input type="checkbox" name="hospedagem3" value="3" onclick="hospedagem_input('3')">3 estrelas<br>
+					<input type="checkbox" name="hospedagem4" value="4" onclick="hospedagem_input('4')">4 estrelas
+					<input type="checkbox" name="hospedagem5" value="5" onclick="hospedagem_input('5')">5 estrelas
 				</td>
 			</tr>
+
+			<tr>
+				<td><label>Preço da diária</label></td>
+				<td>
+					<input placeholder='hotel 1 estrela' type="number" size="30" name="preco_diaria1" step="0.01" disabled><br>
+				
+					<input placeholder='hotel 2 estrelas' type="number" size="30" name="preco_diaria2" step="0.01" disabled><br>
+				
+					<input placeholder='hotel 3 estrelas' type="number" size="30" name="preco_diaria3" step="0.01" disabled><br>
+				
+					<input placeholder='hotel 4 estrelas' type="number" size="30" name="preco_diaria4" step="0.01" disabled><br>
+				
+					<input placeholder='hotel 5 estrelas' type="number" size="30" name="preco_diaria5" step="0.01" disabled>
+				</td>
+			</tr>
+
+			
 			
 			<tr>
 				<td><label>Passeios</label></td>

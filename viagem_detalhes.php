@@ -23,7 +23,7 @@
     $id = $_GET["id"];
 
     //seleciona todas as informações dessa viagem
-    $sql="select * from Viagem where id=$id;";
+    $sql="select * from Viagem where id=$id and disponibilidade='1';";
     $sql_resultado = mysqli_query($conn,$sql);
 ?>
 
@@ -72,13 +72,24 @@
         <?php
         //Mostra todas as informações da viagem se ela existir
         if(mysqli_num_rows($sql_resultado)>0){
-            $viagem = $sql_resultado->fetch_assoc();
+            $viagem = mysqli_fetch_assoc($sql_resultado);
             //Busca preço do transporte no banco
             $sql="select preco from Transporte where transporte='". $viagem["transporte"] ."';";
             $preco_select = mysqli_query($conn,$sql);
-            $preco_transporte = $preco_select->fetch_assoc();
+            $preco_transporte = mysqli_fetch_assoc($preco_select);
             //Calcula preço
-            $preco = $viagem["diarias"]*$viagem["preco_diaria"]+$preco_transporte["preco"]+$viagem["preco_translado"];
+            $preco = $preco_transporte["preco"]+$viagem["preco_translado"];
+            //Hospedagens disponíveis para a viagem
+            $hospedagem = "";
+            $sql="select estrelas from Hospedagem where id_viagem=". $viagem["id"] .";";
+            $hospedagem_select = mysqli_query($conn,$sql);
+            while($hospedagem_estrela = mysqli_fetch_assoc($hospedagem_select)){
+                $hospedagem = $hospedagem . $hospedagem_estrela['estrelas'] . " estrelas. ";
+            }
+            //Hospedagens disponíveis para a viagem
+            $passeios = "";
+            $sql="select descricao from Passeio where id_viagem=". $viagem["id"] .";";
+            $passeio_select = mysqli_query($conn,$sql);
             echo "
 
             <td width=70% valign='top'>
@@ -100,26 +111,29 @@
                         <td>".$viagem['data_partida']."</td>
                     </tr>
                     <tr>
-                        <th> Número de diárias</th>
-                        <td>".$viagem['diarias']."</td>
-                    </tr>
-                    <tr>
                         <th> Modo de transporte</th>
                         <td>".$viagem['transporte']."</td>
-                    </tr>
-                    <tr>
-                        <th> Tipo de Hotel</th>
-                        <td>".$viagem['hospedagem']." estrelas</td>
-                    </tr>
-                    <tr>
-                        <th> Passeios</th>
-                        <td>".$viagem['passeios']."</td>
                     </tr>
                     <tr>
                         <th> Preço</th>
                         <td>".$preco."</td>
                     </tr>
-                    
+                    <tr>
+                        <th> Opções de hospedagem</th>
+                        <td>".$hospedagem."</td>
+                    </tr>
+                    ";
+                    if(mysqli_num_rows($passeio_select)>0){
+                        while($passeio_descricao = mysqli_fetch_assoc($passeio_select)){
+                            $passeios = $passeios . "- ". $passeio_descricao['descricao'] . ".<br> ";
+                        }
+                        echo
+                            "<tr>
+                                <th> Passeios disponíveis</th>
+                                <td>".$passeios."</td>
+                            </tr>";
+                    }
+                    echo"
                     <tr>
                         <td colspan='2' align='center'><input type='submit' value='Comprar'></td>
                     </tr>
@@ -130,6 +144,33 @@
                 </form>
             </td>
         </tr>";
+
+            //Se existirem comentários sobre a viagem feita por usuários ainda ativos, mostra
+            $sql = "select u.login as usuario, c.texto as texto from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id." and u.disponibilidade='1';";
+            $comentarioResult = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($comentarioResult)>0){
+                echo"
+                <tr>
+                    <td colspan='2' align='center'> <h2>Comentários</h2></td>
+                </tr>
+                <tr>
+                <td width=30% valign='top'>
+                <table align='center' border='0' width =50%>
+                <tr>
+                <th>Usuário</th>
+                <th>Comentário</th>
+                </tr>
+                ";
+
+                while( $comentario = mysqli_fetch_assoc($comentarioResult)){
+                    echo"
+                        <tr>
+                            <td align='center'>". $comentario["usuario"] .": </td>
+                            <td align='center'>". $comentario["texto"] ."</td>
+                        </tr>"
+                    ;
+                }
+            }
             //Se usuário for cliente, opção de escrever um comentário sobre a viagem
             if($_SESSION["tipo_usuario"]=="cliente"){
                 echo"
@@ -148,33 +189,6 @@
                 </tr>
                 </form>
                 ";
-            }
-
-            //Se existirem comentários sobre a viagem feita por usuários ainda ativos, mostra
-            $sql = "select u.login as usuario, c.texto as texto from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id." and u.status='1';";
-            $comentarioResult = mysqli_query($conn,$sql);
-            if($comentarioResult->num_rows>0){
-                echo"
-                <tr>
-                    <td colspan='2' align='center'> <h2>Comentários</h2></td>
-                </tr>
-                <tr>
-                <td width=30% valign='top'>
-                <table align='center' border='0' width =50%>
-                <tr>
-                <th>Usuário</th>
-                <th>Comentário</th>
-                </tr>
-                ";
-
-                while( $comentario = $comentarioResult->fetch_assoc()){
-                    echo"
-                        <tr>
-                            <td align='center'>". $comentario["usuario"] .": </td>
-                            <td align='center'>". $comentario["texto"] ."</td>
-                        </tr>"
-                    ;
-                }
             }
             echo"
             </table>

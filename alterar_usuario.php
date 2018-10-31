@@ -23,7 +23,7 @@
 	$usuario_id = $_SESSION["usuario_id"];
 	
 	//Informações do usuário
-    $sql="select * from Usuario where id = '". $usuario_id ."' and status ='1';";
+    $sql="select * from Usuario where id = '". $usuario_id ."' and disponibilidade ='1';";
 	$sql_resultado = mysqli_query($conn,$sql);
 	$consulta = mysqli_fetch_assoc($sql_resultado);	
 

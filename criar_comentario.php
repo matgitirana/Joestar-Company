@@ -27,7 +27,8 @@
     //Se tiver texto, insere no banco
     if(strlen($texto)>0){
         $sql = "insert into Comentario(id_viagem, id_usuario, texto) values (".$viagem_id.", ".$usuario_id.", '".$texto."');";
+        mysqli_query($conn,$sql);
     }
 
-    header("Location: login.php?id=".$viagem_id."");
+    header("Location: viagem_detalhes.php?id=".$viagem_id."");
 ?>

@@ -28,7 +28,7 @@
 	$usuario_existe=false;
 
 	//Informações do usuário
-    $sql="select * from Usuario where id = '". $usuario_id ."' and status='1';";
+    $sql="select * from Usuario where id = '". $usuario_id ."' and disponibilidade='1';";
 	$sql_resultado = mysqli_query($conn,$sql);
 	//Impedir que um adm exclua outro adm; Impedir que um cliente exclua qualquer conta que não seja a própria
 	if(mysqli_num_rows($sql_resultado)>0){

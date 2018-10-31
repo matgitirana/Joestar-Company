@@ -94,11 +94,6 @@
 				</tr>
 
 				<tr>
-					<td><label>Diárias</label></td>
-					<td><input type='text' size='30' name='diarias' maxlength='50' value='". $consulta['diarias'] ."' disabled></td>
-				</tr>
-
-				<tr>
 					<td><label>Modo de transporte</label></td>
 					<td><input type='text' size='30' name='transporte' maxlength='50' value='". $consulta['transporte'] ."' disabled></td>
 				</tr>
@@ -106,23 +101,6 @@
 				<tr>
 					<td><label>Translado</label></td>
 					<td><input type='text' size='30' name='translado' maxlength='20' value='". $consulta['translado'] ."' disabled></td>
-				</tr>
-				
-				<tr>
-					<td><label>Hospedagem</label>
-                    <td>
-                    <input type='text' size='30' name='hospedagem' maxlength='20' value='". $consulta['hospedagem'] ."'disabled>
-                    
-						
-					</td>
-				</tr>
-				
-				<tr>
-					<td><label>Passeios</label></td>
-                    <td>
-                    <textarea textarea name='passeios' rows='4' cols='30' maxlength='200' disabled>". $consulta['passeios'] ."</textarea>>
-
-                    </td>
 				</tr>
 
                 <tr>

@@ -56,21 +56,21 @@
     $today = date("Y-m-d");
 
     // Usado para checar se já existe um usuário com o cpf informado
-    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdCpf = $consulta['quantidade'];
 
     // Usado para checar se já existe um usuário com o rg informado
-    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdRg = $consulta['quantidade'];
     
     // Usado para checar se já existe um usuário com o login informado
-    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdLogin = $consulta['quantidade'];
 
     if(validar_cpf($cpf)==false){
@@ -106,8 +106,8 @@
     if($cadastro_valido==true){
         //Verifica qual será o id do novo usuário para usar no caminho da foto
         $sql="select count(id) as quantidade from Usuario;";
-        $sql_resultadoado = mysqli_query($conn,$sql);
-        $consulta = mysqli_fetch_assoc($sql_resultadoado);
+        $sql_resultado = mysqli_query($conn,$sql);
+        $consulta = mysqli_fetch_assoc($sql_resultado);
         $id_usuario = $consulta['quantidade']+1;
 
         //Faz upload da foto
@@ -116,8 +116,8 @@
         $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
         
-        //Status 1 = ativo
-        $status = '1';
+        //disponibilidade 1 = ativo
+        $disponibilidade = '1';
         //Adm só pode criar usuário adm; usuário não logado só pode se cadastrar como cliente
         if($_SESSION["tipo_usuario"] == "adm"){
             $tipo = "adm";
@@ -126,7 +126,7 @@
         }
 		
 		// Insere usuário no banco
-        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, status, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$status."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
+        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
         mysqli_query($conn,$sql);
         
         header("Location: login.php");

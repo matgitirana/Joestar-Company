@@ -55,27 +55,27 @@
     $today = date("Y-m-d");
 
     // Usado para checar se já existe um usuário com o cpf informado
-    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdCpf = $consulta['quantidade'];
 
     // Usado para checar se já existe um usuário com o rg informado
-    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(rg) as quantidade from Usuario where rg = '".$rg."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdRg = $consulta['quantidade'];
     
     // Usado para checar se já existe um usuário com o login informado
-    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and status='1';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $consulta = mysqli_fetch_assoc($sql_resultadoado);
+    $sql="select count(login) as quantidade from Usuario where login = '".$usuario."' and disponibilidade='1';";
+    $sql_resultado = mysqli_query($conn,$sql);
+    $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdLogin = $consulta['quantidade'];
 
     // Informações atuais do usuário
     $sql="select id, rg, cpf, login, caminho_foto from Usuario where id = '".$_SESSION["usuario_id"]."';";
-    $sql_resultadoado = mysqli_query($conn,$sql);
-    $informacao_atual = mysqli_fetch_assoc($sql_resultadoado);
+    $sql_resultado = mysqli_query($conn,$sql);
+    $informacao_atual = mysqli_fetch_assoc($sql_resultado);
         
     if(validar_cpf($cpf)==false){
 		$cadastro_valido=false;

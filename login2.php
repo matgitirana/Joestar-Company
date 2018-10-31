@@ -20,10 +20,10 @@
     $senha=$_POST['senha'];
     //Valida login
     $login_valido = true;		
-    $sql = "select id, senha, status, tipo from Usuario where login='".$usuario."';";
-	$sql_resultadoado = mysqli_query($conn,$sql);
-	$consulta = mysqli_fetch_assoc($sql_resultadoado);
-	if($consulta["senha"]!=$senha || $consulta["status"]!='1'){
+    $sql = "select id, senha, disponibilidade, tipo from Usuario where login='".$usuario."';";
+	$sql_resultado = mysqli_query($conn,$sql);
+	$consulta = mysqli_fetch_assoc($sql_resultado);
+	if($consulta["senha"]!=$senha || $consulta["disponibilidade"]!='1'){
 		$login_valido=false;
 	}
     
