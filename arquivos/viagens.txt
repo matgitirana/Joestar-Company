@@ -1,3 +1,0 @@
-Paris|2018-11-11|2|Aviao|true|3|false|
-Londres|2018-11-11|2|Avaio|false|4|false|
-Rio de Janeiro|2018-11-11|2|Trem|true|2|false|
