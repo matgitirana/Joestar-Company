@@ -68,6 +68,27 @@ create table JoestarCompany.Comentario(
     constraint comentario_fk_usuario foreign key(id_usuario) references Usuario(id)
 );
 
+create table JoestarCompany.Compra(
+    id int AUTO_INCREMENT not null,
+    id_viagem int not null, 
+    id_usuario int not null,
+    id_hospedagem int not null,
+    preco double not null,
+    constraint compra_pk primary key(id),
+    constraint compra_fk_viagem foreign key(id_viagem) references Viagem(id),
+    constraint compra_fk_usuario foreign key(id_usuario) references Usuario(id),
+    constraint compra_fk_hospedagem foreign key(id_hospedagem) references Hospedagem(id)
+);
+
+create table JoestarCompany.Compra_Passeio(
+    id int AUTO_INCREMENT not null,
+    id_compra int not null,
+    id_passeio int not null,
+    constraint compra_passeio_pk primary key(id),
+    constraint compra_passeio_fk_compra foreign key(id_compra) references Compra(id),
+    constraint compra_passeio_fk_passeio foreign key(id_passeio) references Passeio(id)
+);
+
 
 insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login, senha, caminho_foto)
 values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg');
