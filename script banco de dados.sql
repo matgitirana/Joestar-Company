@@ -91,7 +91,10 @@ create table JoestarCompany.Compra_Passeio(
 
 
 insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login, senha, caminho_foto)
-values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg');
+values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg'),
+(78828788550, 87654321, 'Fulano', 'de Tal', 'm', 'Rua Y', '819123456789', '2000-11-01', 'cliente', '1', 'fulano', '12345', 'fotos/usuarios/foto_usuario_2.jpg'),
+(10119841134, 13572468, 'Maria', 'Genérica', 'f', 'Rua AZ', '987654321', '1990-12-25', 'cliente', '1', 'maria', '12345', 'fotos/usuarios/foto_usuario_3.jpg'),
+(28629745878, 12534878515, 'Cicrano', 'de Tal', 'o', 'Rua GH', '3021459845', '1980-01-02', 'cliente', '1', 'cicrano', '12345', 'fotos/usuarios/foto_usuario_4.jpg');
 
 insert into JoestarCompany.Transporte(transporte, preco, disponibilidade) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
 
