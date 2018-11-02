@@ -26,6 +26,6 @@
         header("Location: logout.php");
     }
     else{
-        header("Location: home.php");
+        header("Location: consultar_usuarios.php");
     }
 ?>

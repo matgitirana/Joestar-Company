@@ -142,8 +142,11 @@
 		// Insere usuário no banco
         $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
         mysqli_query($conn,$sql);
-        
-        header("Location: login.php");
+
+        if($_SESSION['tipo_usuario']=='adm')
+            header("Location: consultar_usuarios.php");
+        else
+            header("Location: login.php")
     } else{
         header("Location: cadastrar_usuario.php");
     }

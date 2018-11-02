@@ -127,7 +127,7 @@
         $sql="update Usuario set cpf = '".$cpf."', rg = '".$rg."', nome = '".$nome."', sobrenome = '".$sobrenome."', sexo = '".$sexo."', endereco = '".$endereco."', telefone = '".$telefone."', data_nascimento = '".$data_nascimento."', login = '".$usuario."',  senha = '".$senha."', caminho_foto = '".$caminho_foto."' where id= ".$informacao_atual['id'].";";
         mysqli_query($conn,$sql);
             
-        header("Location: home.php");
+        header("Location: ver_perfil.php");
     } else{
         header("Location: alterar_usuario.php");
     }

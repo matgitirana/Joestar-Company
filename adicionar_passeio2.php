@@ -33,13 +33,12 @@
     }
 
     
-    //Se descrição tem algo escrito e o preço tem valor diferente de zero, insere no banco
+    
     if($passeio_valido){
         $sql = "insert into Passeio(id_viagem, descricao, preco) values(".$id_viagem.", '".$descricao."', ".$preco.");";
         mysqli_query($conn,$sql);
         header("Location: consultar_viagens.php");
     } else {
-        $_SESSION['mensagem'] = ''
         header("Location: adicionar_passeio.php?id=$id_viagem");
     }
 

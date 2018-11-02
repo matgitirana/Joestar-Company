@@ -21,6 +21,6 @@
     $sql = "update Viagem set disponibilidade= '0' where  id=".$id.";";
     $sql_resultado = mysqli_query($conn,$sql);
     
-    header("Location: home.php");
+    header("Location: consultar_viagens.php");
     
 ?>
