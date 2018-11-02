@@ -99,7 +99,9 @@
                                     <td>\$$preco</td>
                                     ";
                                     if($_SESSION['tipo_usuario']=='adm'){
-                                        echo"<td><a href=deletar_viagem.php?id=". $row["id"] .">Deletar viagem</td>
+                                        echo"
+                                        <td><a href=deletar_viagem.php?id=". $row["id"] .">Deletar viagem</td>
+                                        <td><a href=adicionar_passeio.php?id=". $row["id"] .">Adicionar passeio a essa viagem</td>
                                         ";
                                     }
                                 echo"

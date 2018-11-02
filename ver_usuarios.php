@@ -80,9 +80,9 @@
         </div>
 
         <?php
-
-		//Mostra todas as informações de todos os usuários ativos
-        echo "
+		if($_SESSION['tipo_usuario']=='adm'){
+			//Mostra todas as informações de todos os usuários ativos
+			echo "
 			<table align='center' border='0' width =100%>
 
 				<tr>
@@ -133,7 +133,11 @@
 						}
 				}
 
-				echo "</table>";
+			echo "</table>";
+		} else{
+			echo "Você não tem acesso a essa página";
+		}
+		
 			
         
         ?>
