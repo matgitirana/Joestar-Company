@@ -1,10 +1,5 @@
 <?php
     session_start();
-    if(!isset($_SESSION['usuario_id']))
-        $_SESSION['usuario_id'] = '';
-    if(!isset($_SESSION['tipo_usuario']))
-        $_SESSION["tipo_usuario"] = "";
-    
 
     //Informações do banco de dados
     $servername = "localhost";
@@ -28,6 +23,8 @@
     if(strlen($texto)>0){
         $sql = "insert into Comentario(id_viagem, id_usuario, texto) values (".$viagem_id.", ".$usuario_id.", '".$texto."');";
         mysqli_query($conn,$sql);
+    } else{
+        $_SESSION['mensagem'] = "Comentário inválido";
     }
 
     header("Location: viagem_detalhes.php?id=".$viagem_id."");

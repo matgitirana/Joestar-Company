@@ -4,6 +4,8 @@
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
+    if(!isset($_SESSION['mensagem']))
+		$_SESSION['mensagem'] = '';
 
     //Informações do banco de dados
     $servername = "localhost";

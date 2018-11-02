@@ -3,7 +3,9 @@
     if(!isset($_SESSION['usuario_id']))
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
-        $_SESSION["tipo_usuario"] = "";
+		$_SESSION["tipo_usuario"] = "";
+	if(!isset($_SESSION['mensagem']))
+		$_SESSION['mensagem'] = '';
 
     // Informação do banco de dados
 	$servername = "localhost";
@@ -47,9 +49,18 @@
         <title> Agência de Viagens - Cadastro </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="estilo.css" type="text/css" />
+		<script>
+            function mostrar_erro(){
+                var mensagem_erro = "<?php echo $_SESSION['mensagem'] ?>";
+                if(mensagem_erro!=''){
+                    alert(mensagem_erro);
+                    <?php $_SESSION['mensagem'] = ''; ?>
+                }
+            }
+        </script>
     </head>
 
-    <body>
+    <body onload='mostrar_erro()'>
 
         <div id="topo">
             <ul id="menu">

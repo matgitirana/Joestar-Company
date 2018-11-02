@@ -33,7 +33,7 @@
     	header("Location: home.php");
              
     } else{
+		$_SESSION['mensagem'] = "Usuário ou senha incorreto";
         header("Location: login.php"); 
-        exit();
     }
 ?>

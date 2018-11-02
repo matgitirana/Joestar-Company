@@ -73,35 +73,49 @@
     $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdLogin = $consulta['quantidade'];
 
+     
+    
+
     if(validar_cpf($cpf)==false){
-		$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "CPF inválido";
     } else if($qtdCpf!=0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "CPF repetido";
     } else if(strlen($nome)==0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Nome inválido";
     } else if(strlen($sobrenome)==0){
         $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Sobrenome inválido";
     } else if(strlen($endereco)==0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Endereço inválido";
     } else if(strlen($usuario)==0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Login inválido";
     } else if($qtdLogin!=0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Login repetido";
     } else if(strlen($rg)==0){
     	$cadastro_valido=false;
     } else if($qtdRg!=0){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "RG repetido";
     } else if(strlen($senha)<5){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Senha inválida";
     } else if(strlen($telefone)<8){
-    	$cadastro_valido=false;
-    } else if(strlen($data_nascimento)!=10){
-    	$cadastro_valido=false;
-    } else if(date_create($data_nascimento)>=date_create($today)){
-    	$cadastro_valido=false;
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Telefone inválido";
+    } else if(strlen($data_nascimento)!=10 || date_create($data_nascimento)>=date_create($today)){
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Data de nascimento inválida";
     } else if(filesize($_FILES['foto']==0)){
-    	$cadastro_valido=false;
-    }
+        $cadastro_valido=false;
+        $_SESSION['mensagem'] = "Foto é obrigatória";
+    }    
+
     
     if($cadastro_valido==true){
         //Verifica qual será o id do novo usuário para usar no caminho da foto

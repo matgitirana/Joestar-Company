@@ -4,6 +4,8 @@
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
+    if(!isset($_SESSION['mensagem']))
+		$_SESSION['mensagem'] = '';
 
     if($_SESSION['usuario_id']!=''){
         header("Location: home.php");
@@ -15,9 +17,18 @@
         <title> Agência de Viagens - Login </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="estilo.css" type="text/css" />
+        <script>
+            function mostrar_erro(){
+                var mensagem_erro = "<?php echo $_SESSION['mensagem'] ?>";
+                if(mensagem_erro!=''){
+                    alert(mensagem_erro);
+                    <?php $_SESSION['mensagem'] = ''; ?>
+                }
+            }
+        </script>
     </head>
 
-    <body>
+    <body onload='mostrar_erro()'>
 
         <div id="topo">
             <ul id="menu">

@@ -4,7 +4,8 @@
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
         $_SESSION["tipo_usuario"] = "";
-
+    if(!isset($_SESSION['mensagem']))
+		$_SESSION['mensagem'] = '';
     //Informações do banco de dados
     $servername = "localhost";
 	$username = "root";
@@ -67,12 +68,12 @@
         <tr>
         
         <td width=70% valign='top'>
-        <table align='center' border='0' width =100%>
+        <table align='center' border='1' width =100%>
                 <tr  align='center'>   
                     <td colspan='8' ><h1>Viagens oferecidas</h1></td>
                 </tr>
                 <tr align='center'>
-                    <th>Foto</th>
+                    <th width = 20%>Foto</th>
                     <th>Destino</th>
                     <th>Data de Partida</th>
                     <th>Transporte</th>
@@ -92,7 +93,7 @@
                                 $preco = $preco_transporte["preco"]+$row["preco_translado"];
                                 echo "
                                 <tr align='center'>   
-                                    <td><a href=viagem_detalhes.php?id=". $row["id"] ."><img width='30%' src = '".$row["caminho_foto"]."' alt='foto da viagem'></a></td>
+                                    <td><a href=viagem_detalhes.php?id=". $row["id"] ."><img width='50%' src = '".$row["caminho_foto"]."' alt='foto da viagem'></a></td>
                                     <td>".$row["destino"]."</td>
                                     <td>".$row["data_partida"]."</td>
                                     <td>".$row["transporte"]."</td>

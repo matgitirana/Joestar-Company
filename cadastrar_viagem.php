@@ -4,7 +4,9 @@
         $_SESSION['usuario_id'] = '';
     if(!isset($_SESSION['tipo_usuario']))
 		$_SESSION["tipo_usuario"] = "";
-	
+	if(!isset($_SESSION['mensagem']))
+		$_SESSION['mensagem'] = '';
+
 	//Informações do banco de dados
     $servername = "localhost";
 	$username = "root";
@@ -48,16 +50,26 @@
 			var checkBox = document.getElementsByName('hospedagem'+i)[0];
 			var input = document.getElementsByName('preco_diaria'+i)[0];
 			if (checkBox.checked == true){
-				input.disabled = false;;
+				input.disabled = false;
 			} else {
 				input.value = 0;
 				input.disabled = true;
 			}
 		}
+		
+		function mostrar_erro(){
+			var mensagem_erro = "<?php echo $_SESSION['mensagem'] ?>";
+			if(mensagem_erro!=''){
+				alert(mensagem_erro);
+				<?php $_SESSION['mensagem'] = ''; ?>
+			}
+		}
 	</script>
+	
 </head>
 
-<body>
+<body onload='mostrar_erro()'>
+	
 
 	<div id="topo">
 		<ul id="menu">
@@ -118,7 +130,7 @@ if($_SESSION['tipo_usuario']=='adm'){
 							$sql_resultado = mysqli_query($conn,$sql);
 							if(mysqli_num_rows($sql_resultado)>0){
 								while($transporte = mysqli_fetch_assoc($sql_resultado)){
-									echo'<option value=''.$transporte['transporte'].''>'.$transporte['transporte'].'</option>';
+									echo"'<option value=".$transporte['transporte'].">".$transporte['transporte']."</option>'";
 								}
 							}
 						echo"
@@ -129,8 +141,8 @@ if($_SESSION['tipo_usuario']=='adm'){
 
 					<td><label>Translado</label></td>
 					<td>
-						<input type='radio' name='translado' value=true onclick='translado_input()'>Sim
-						<input type='radio' name='translado' value=false checked='checked' onclick='translado_input()'>Não
+						<input type='radio' name='translado' value=1 onclick='translado_input()'>Sim
+						<input type='radio' name='translado' value=0 checked='checked' onclick='translado_input()'>Não
 					</td>
 				</tr>
 
@@ -144,11 +156,11 @@ if($_SESSION['tipo_usuario']=='adm'){
 				<tr>
 					<td><label>Hospedagem</label></td>
 					<td>
-						<input type='checkbox' name='hospedagem1' value='1' onclick='hospedagem_input('1')'>1 estrela
-						<input type='checkbox' name='hospedagem2' value='2' onclick='hospedagem_input('2')'>2 estrelas
-						<input type='checkbox' name='hospedagem3' value='3' onclick='hospedagem_input('3')'>3 estrelas<br>
-						<input type='checkbox' name='hospedagem4' value='4' onclick='hospedagem_input('4')'>4 estrelas
-						<input type='checkbox' name='hospedagem5' value='5' onclick='hospedagem_input('5')'>5 estrelas
+						<input type='checkbox' name='hospedagem1' value='1' onclick='hospedagem_input(1)'>1 estrela
+						<input type='checkbox' name='hospedagem2' value='2' onclick='hospedagem_input(2)'>2 estrelas
+						<input type='checkbox' name='hospedagem3' value='3' onclick='hospedagem_input(3)'>3 estrelas<br>
+						<input type='checkbox' name='hospedagem4' value='4' onclick='hospedagem_input(4)'>4 estrelas
+						<input type='checkbox' name='hospedagem5' value='5' onclick='hospedagem_input(5)'>5 estrelas
 					</td>
 				</tr>
 

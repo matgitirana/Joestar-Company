@@ -26,12 +26,15 @@
             $preco_diaria[$lista_hospedagem_tamanho]=$_POST['preco_diaria'.$i];
             if($preco_diaria[$lista_hospedagem_tamanho]==0 || strlen($preco_diaria[$lista_hospedagem_tamanho])<1){
                 $cadastro_valido = false;
-                echo 'ui';
+                $_SESSION['mensagem'] = 'Preço de hospedagem inválido';
             }
             $lista_hospedagem_tamanho++;
         }
     }
-    $preco_translado=$_POST['preco_translado'];
+    if(isset($_POST['preco_translado']))
+        $preco_translado=$_POST['preco_translado'];
+    else
+        $preco_translado = 0;
     $transporte=$_POST['transporte'];
     $translado=$_POST['translado'];
     //$passeios=$_POST['passeios'];
@@ -41,19 +44,16 @@
     
     if(strlen($destino)==0){
         $cadastro_valido=false;
-        echo '1;';
+        $_SESSION['mensagem'] = 'Destino inválido';
     } else if(filesize($_FILES['foto']==0)){
         $cadastro_valido=false;
-        echo '2;';
-    } else if($translado==true && ($preco_translado==0 || !isset($preco_translado))){
+        $_SESSION['mensagem'] = 'Foto é obrigatória';
+    } else if($translado=='1' && $preco_translado==0){
         $cadastro_valido=false;
-        echo '3;';
-    } else if(strlen($data_partida)!=10){
+        $_SESSION['mensagem'] = 'Preço de translado inválido';
+    } else if(strlen($data_partida)!=10 || date_create($data_partida)<=date_create($today)){
         $cadastro_valido=false;
-        echo '4;';
-    } else if(date_create($data_partida)<=date_create($today)){
-        $cadastro_valido=false;
-        echo '5;';
+        $_SESSION['mensagem'] = 'Data de partida inválida';
     }
         
     
@@ -87,8 +87,8 @@
         }
         
         
-        //header("Location: home.php");
+        header("Location: consultar_viagens.php");
     } else{
-        //header("Location: cadastrar_viagem.php");
+        header("Location: cadastrar_viagem.php");
     }
 ?>
