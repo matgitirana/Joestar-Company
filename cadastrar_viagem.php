@@ -52,7 +52,7 @@
 			if (checkBox.checked == true){
 				input.disabled = false;
 			} else {
-				input.value = 0;
+				input.value = '';
 				input.disabled = true;
 			}
 		}
@@ -141,8 +141,8 @@ if($_SESSION['tipo_usuario']=='adm'){
 
 					<td><label>Translado</label></td>
 					<td>
-						<input type='radio' name='translado' value=1 onclick='translado_input()'>Sim
-						<input type='radio' name='translado' value=0 checked='checked' onclick='translado_input()'>Não
+						<input type='radio' name='translado' value=true onclick='translado_input()'>Sim
+						<input type='radio' name='translado' value=false checked='checked' onclick='translado_input()'>Não
 					</td>
 				</tr>
 

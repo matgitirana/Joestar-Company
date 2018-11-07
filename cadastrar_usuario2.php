@@ -146,7 +146,8 @@
         if($_SESSION['tipo_usuario']=='adm')
             header("Location: consultar_usuarios.php");
         else
-            header("Location: login.php")
+            header("Location: login.php");
+
     } else{
         header("Location: cadastrar_usuario.php");
     }
