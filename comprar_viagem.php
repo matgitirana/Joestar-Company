@@ -22,7 +22,7 @@
     }
 
     //ID da viagem
-    $id = $_GET["id"];
+    $id = $_POST["id"];
 
     //seleciona todas as informações dessa viagem
     $sql="select * from Viagem where id=$id and disponibilidade='1';";
@@ -31,7 +31,7 @@
 
 <html>
     <head>
-        <title> Agência de Viagens - Detalhe da viagem </title>
+        <title>Página de compra </title>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 		<link rel='stylesheet' href='estilo.css' type='text/css' />
         <script>
@@ -91,26 +91,23 @@
             //Calcula preço
             $preco = $preco_transporte["preco"]+$viagem["preco_translado"];
             //Hospedagens disponíveis para a viagem
-            $hospedagem = "";
             $sql="select estrelas from Hospedagem where id_viagem=". $viagem["id"] .";";
             $hospedagem_select = mysqli_query($conn,$sql);
+            $i = 0;
             while($hospedagem_estrela = mysqli_fetch_assoc($hospedagem_select)){
-                $hospedagem = $hospedagem . $hospedagem_estrela['estrelas'] . " estrelas. ";
+                $hospedagem[$i] = $hospedagem_estrela['estrelas'];
+                $i++;
             }
             //Passeios disponíveis para a viagem
-            $passeios = "";
-            $sql="select descricao from Passeio where id_viagem=". $viagem["id"] .";";
+            $sql="select * from Passeio where id_viagem=". $viagem["id"] .";";
             $passeio_select = mysqli_query($conn,$sql);
             echo "
 
             <td width=70% valign='top'>
-            <form action='comprar_viagem.php' method='post'>
+            <form action='' method='post'>
                 <table align='center' border='0' width =100%>
                     <tr  align='center'>   
-                        <td colspan='3' ><h1>Detalhes da viagem</h1></td>
-                    </tr>
-                    <tr>
-                    <td colspan='2'><input type='hidden' name='id' value='". $viagem["id"]."'</td>
+                        <td colspan='3' ><h1>Página de compra</h1></td>
                     </tr>
                     <tr>
                         <th>Destino</th>
@@ -131,84 +128,46 @@
                     </tr>
                     <tr>
                         <th> Opções de hospedagem</th>
-                        <td>".$hospedagem."</td>
-                    </tr>
+                        <td>
                     ";
-                    if(mysqli_num_rows($passeio_select)>0){
-                        while($passeio_descricao = mysqli_fetch_assoc($passeio_select)){
-                            $passeios = $passeios . "- ". $passeio_descricao['descricao'] . ".<br> ";
-                        }
+                    for($i = 0; $i < count($hospedagem); $i++) {
                         echo
-                            "<tr>
-                                <th> Passeios disponíveis</th>
-                                <td>".$passeios."</td>
-                            </tr>";
+                        "<input type='radio' name='hospedagem' value='$hospedagem[$i]'> ".$hospedagem[$i]." estrelas";
+                    }
+                    echo "</td></tr>
+                    <tr>
+                        <th> Passeios disponíveis</th>
+                        <td>";
+                    if(mysqli_num_rows($passeio_select)>0){
+                        $i = 0;
+                        while($passeio = mysqli_fetch_assoc($passeio_select)){
+                            echo
+                            "<input type='checkbox' name='passeio".$i."' value='$passeio[id]'>".$passeio['descricao']."  R$:".$passeio['preco']."<br>";
+                            $i++;
+                        }
                     }
                     echo"
+                    </td>
+                    </tr>
                     <tr>
-                        <td colspan='2' align='center'><input type='submit' value='Comprar'></td>
+                        <td colspan='2' align='center'></td>
                     </tr>
                     
-                    
-                    
+                    <tr>
+                        <th>Forma de pagamento</th>
+                        <td>
+                            <select name='pagamento'>
+                                <option value='cartao'>Cartão de crédito</option>
+                                <option value='boleto'>Boleto</option>
+                                <option value='paypal'>Paypal</option>
+                            </select>
+                        </td>
+                    </tr>
                 </table>
                 </form>
             </td>
         </tr>";
 
-            //Se existirem comentários sobre a viagem feita por usuários ainda ativos, mostra
-            $sql = "select u.login as usuario, c.texto as texto from Comentario as c, Usuario as u where c.id_usuario = u.id and c.id_viagem = ".$id." and u.disponibilidade='1';";
-            $comentarioResult = mysqli_query($conn,$sql);
-            if(mysqli_num_rows($comentarioResult)>0){
-                echo"
-                <tr>
-                    <td colspan='2' align='center'> <h2>Comentários</h2></td>
-                </tr>
-                <tr>
-                <td width=30% valign='top'>
-                <table align='center' border='0' width =50%>
-                <tr>
-                <th>Usuário</th>
-                <th>Comentário</th>
-                </tr>
-                ";
-
-                while( $comentario = mysqli_fetch_assoc($comentarioResult)){
-                    echo"
-                        <tr>
-                            <td align='center'>". $comentario["usuario"] .": </td>
-                            <td align='center'>". $comentario["texto"] ."</td>
-                        </tr>"
-                    ;
-                }
-            }
-            //Se usuário for cliente, opção de escrever um comentário sobre a viagem
-            if($_SESSION["tipo_usuario"]=="cliente"){
-                echo"
-                <form action='criar_comentario.php' method='post'>
-                <tr>
-                    <td align='center' colspan='2'>Gostaria de deixar uma sugestão ou uma dúvida?</td>
-                </tr>
-
-                <input type='hidden' name='viagem_id' value='".$id."'>
-
-                <tr>
-                    <td align='center' colspan='2'><textarea name='texto' rows='4' cols='30' maxlength='500' placeholder='Escreva seu texto aqui'></textarea></td>
-                </tr>
-                <tr>
-                    <td align='center' colspan='2'><input type='submit' value='Enviar'></td>
-                </tr>
-                </form>
-                ";
-            }
-            echo"
-            </table>
-            </td>
-                </tr>
-
-            </table>
-            ";
-                        
             
         } else{
             echo "Viagem inexistente";
