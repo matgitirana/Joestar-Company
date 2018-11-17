@@ -91,20 +91,23 @@
             //Calcula preço
             $preco = $preco_transporte["preco"]+$viagem["preco_translado"];
             //Hospedagens disponíveis para a viagem
-            $sql="select estrelas from Hospedagem where id_viagem=". $viagem["id"] .";";
+            $sql="select * from Hospedagem where id_viagem=". $viagem["id"] .";";
             $hospedagem_select = mysqli_query($conn,$sql);
             $i = 0;
-            while($hospedagem_estrela = mysqli_fetch_assoc($hospedagem_select)){
-                $hospedagem[$i] = $hospedagem_estrela['estrelas'];
+            while($hospedagem_row = mysqli_fetch_assoc($hospedagem_select)){
+                $hospedagem[$i] = $hospedagem_row;
                 $i++;
             }
+
             //Passeios disponíveis para a viagem
             $sql="select * from Passeio where id_viagem=". $viagem["id"] .";";
             $passeio_select = mysqli_query($conn,$sql);
             echo "
 
             <td width=70% valign='top'>
-            <form action='' method='post'>
+            <form action='comprar_viagem2.php' method='post' enctype='multipart/form-data'>
+            <input type=hidden name='viagem_id' value=".$viagem["id"].">
+            <input type=hidden name='viagem_preco' value=".$preco.">
                 <table align='center' border='0' width =100%>
                     <tr  align='center'>   
                         <td colspan='3' ><h1>Página de compra</h1></td>
@@ -131,8 +134,10 @@
                         <td>
                     ";
                     for($i = 0; $i < count($hospedagem); $i++) {
-                        echo
-                        "<input type='radio' name='hospedagem' value='$hospedagem[$i]'> ".$hospedagem[$i]." estrelas";
+                        if($i == 0)
+                            echo "<input type='radio' name='hospedagem' value='".$hospedagem[$i]['id']."' checked='true'> ".$hospedagem[$i]['estrelas']." estrelas";
+                        else
+                            echo "<input type='radio' name='hospedagem' value='".$hospedagem[$i]['id']."'> ".$hospedagem[$i]['estrelas']." estrelas";
                     }
                     echo "</td></tr>
                     <tr>
@@ -142,7 +147,7 @@
                         $i = 0;
                         while($passeio = mysqli_fetch_assoc($passeio_select)){
                             echo
-                            "<input type='checkbox' name='passeio".$i."' value='$passeio[id]'>".$passeio['descricao']."  R$:".$passeio['preco']."<br>";
+                            "<input type='checkbox' name='passeios[]' value='$passeio[id]'>".$passeio['descricao']."  R$:".$passeio['preco']."<br>";
                             $i++;
                         }
                     }
@@ -164,6 +169,11 @@
                         </td>
                     </tr>
                 </table>
+                <tr>
+                    <td align='center' colspan='2'>
+                        <input type='submit' value='Confirmar compra'>
+                    </td>
+                </tr>
                 </form>
             </td>
         </tr>";
@@ -174,6 +184,8 @@
         }
         ?>
         
+
+        </table>
             
 
 		<div id='rodape'>

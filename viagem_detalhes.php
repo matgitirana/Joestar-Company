@@ -144,10 +144,13 @@
                                 <td>".$passeios."</td>
                             </tr>";
                     }
-                    echo"
-                    <tr>
-                        <td colspan='2' align='center'><input type='submit' value='Comprar'></td>
-                    </tr>
+                    if($_SESSION['usuario_id'] != '') {
+                        echo "
+                            <tr>
+                                <td colspan='2' align='center'><input type='submit' value='Comprar'></td>
+                            </tr>";
+                    }
+                    echo "
                     
                     
                     

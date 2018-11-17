@@ -74,6 +74,7 @@ create table JoestarCompany.Compra(
     id_usuario int not null,
     id_hospedagem int not null,
     preco double not null,
+    forma_pagamento varchar(10) not null,
     constraint compra_pk primary key(id),
     constraint compra_fk_viagem foreign key(id_viagem) references Viagem(id),
     constraint compra_fk_usuario foreign key(id_usuario) references Usuario(id),
