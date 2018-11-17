@@ -1,4 +1,4 @@
-drop database JoestarCompany;
+drop database if exists JoestarCompany;
 
 create database JoestarCompany;
 
@@ -16,7 +16,7 @@ create table JoestarCompany.Usuario(
     disponibilidade char(1) not null,
     login varchar(10) not null,
     senha varchar(20) not null,
-    caminho_foto varchar(60)  not null,
+    caminho_foto varchar(60),
     constraint usuario_pk primary key(id)
 );
 
@@ -35,7 +35,7 @@ create table JoestarCompany.Viagem(
     translado bool not null,
     disponibilidade char(1) not null,
     preco_translado double not null,
-    caminho_foto varchar(60) not null,
+    caminho_foto varchar(60),
     constraint viagem_pk primary key(id),
     constraint viagem_fk_transporte foreign key(transporte) references Transporte(transporte)
 );
@@ -100,13 +100,13 @@ values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '111
 insert into JoestarCompany.Transporte(transporte, preco, disponibilidade) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
 
 insert into JoestarCompany.Viagem(destino, data_partida, transporte, translado,  disponibilidade,  preco_translado, caminho_foto)
-values ('Paris', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 200, 'fotos/viagens/viagem_id_1.jpg'), 
-('Londres', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 400, 'fotos/viagens/viagem_id_2.jpg'), 
-('São Paulo', CURDATE() + INTERVAL 11 DAY, 'trem', true, '1', 100, 'fotos/viagens/viagem_id_3.jpg'), 
-('Tóquio', CURDATE() + INTERVAL 60 DAY, 'avião', true, '1', 500, 'fotos/viagens/viagem_id_4.jpg'), 
-('Rio de Janeiro', CURDATE() + INTERVAL 15 DAY, 'ônibus', false, '1', 0, 'fotos/viagens/viagem_id_5.jpg'), 
-('Boston', CURDATE() + INTERVAL 2 DAY, 'avião', true, '1', 600, 'fotos/viagens/viagem_id_6.jpg'),
-('Roma', CURDATE() + INTERVAL 30 DAY, 'navio', true, '1', 200, 'fotos/viagens/viagem_id_7.jpg');
+values ('Paris', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 200, 'fotos/viagens/foto_viagem_1.jpg'), 
+('Londres', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 400, 'fotos/viagens/foto_viagem_2.jpg'), 
+('São Paulo', CURDATE() + INTERVAL 11 DAY, 'trem', true, '1', 100, 'fotos/viagens/foto_viagem_3.jpg'), 
+('Tóquio', CURDATE() + INTERVAL 60 DAY, 'avião', true, '1', 500, 'fotos/viagens/foto_viagem_4.jpg'), 
+('Rio de Janeiro', CURDATE() + INTERVAL 15 DAY, 'ônibus', false, '1', 0, 'fotos/viagens/foto_viagem_5.jpg'), 
+('Boston', CURDATE() + INTERVAL 2 DAY, 'avião', true, '1', 600, 'fotos/viagens/foto_viagem_6.jpg'),
+('Roma', CURDATE() + INTERVAL 30 DAY, 'navio', true, '1', 200, 'fotos/viagens/foto_viagem_7.jpg');
 
 insert into JoestarCompany.Passeio(id_viagem, descricao, preco) values (1, 'lalalalalalala', 500), (1, 'lelelelelele', 400), (2, 'Teste1', 500), (3, 'Text', 500), (4, 'Passeio', 500), (5, 'Coisa legal', 500), (6, 'Alguma coisa', 500);
 

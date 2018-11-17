@@ -59,17 +59,9 @@
     
     
     if($cadastro_valido==true){
-        //Verifica qual será o id da nova viagem para usar no caminho da foto
-        $sql="select count(id) as quantidade from Viagem;";
-        $sql_resultado = mysqli_query($conn,$sql);
-        $consulta = mysqli_fetch_assoc($sql_resultado);
-        $id_viagem = $consulta['quantidade']+1;
+        
 
-        //Upload da foto da viagem
-        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
-        $diretorio = 'fotos/viagens/';
-        $caminho_foto = $diretorio . 'viagem_id_' . $id_viagem. $extensao;
-        move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
+        
         
         //disponibilidade 1 = ativo
         $disponibilidade = '1';
@@ -79,13 +71,25 @@
         }
 		
 		//Insere viagem no banco
-        $sql="insert into Viagem(destino, data_partida, transporte, translado,  disponibilidade,  preco_translado, caminho_foto) values ('".$destino."', '".$data_partida."', '".$transporte."', '".$translado."', '".$disponibilidade."', ".$preco_translado.", '".$caminho_foto."');";
+        $sql="insert into Viagem(destino, data_partida, transporte, translado,  disponibilidade,  preco_translado) values ('".$destino."', '".$data_partida."', '".$transporte."', '".$translado."', '".$disponibilidade."', ".$preco_translado.");";
         mysqli_query($conn,$sql);
         for($i=0;$i<$lista_hospedagem_tamanho;$i++){
             $sql = "insert into Hospedagem(id_viagem, estrelas, preco_diaria) values (".$id_viagem.", ".$hospedagem[$i].", ".$preco_diaria[$i].");";
             mysqli_query($conn,$sql);
         }
         
+        //Verifica qual foi o id da nova viagem para usar no caminho da foto
+        $id_viagem = mysqli_insert_id($conn);
+
+        //Upload da foto da viagem
+        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
+        $diretorio = 'fotos/viagens/';
+        $caminho_foto = $diretorio . 'foto_viagem_' . $id_viagem. $extensao;
+        move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
+
+        //insere o caminho da foto no banco
+        $sql="update Viagem set caminho_foto = '".$caminho_foto."' where id = ".$id_viagem.";";
+        mysqli_query($conn,$sql);
         
         header("Location: consultar_viagens.php");
     } else{
