@@ -17,7 +17,7 @@
     
     //Entrada do usuário
 	$usuario=$_POST['usuario'];
-    $senha=$_POST['senha'];
+    $senha=strrev($_POST['senha']);
     //Valida login
     $login_valido = true;		
     $sql = "select id, senha, disponibilidade, tipo from Usuario where login='".$usuario."';";

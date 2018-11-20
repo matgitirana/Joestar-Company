@@ -125,7 +125,8 @@
         $id_usuario = $consulta['quantidade']+1;
 
         //Faz upload da foto
-        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
+        $array = explode(".", $_FILES['foto']['name'], 2);
+        $extensao = ".".$array[1];
         $diretorio = 'fotos/usuarios/';
         $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
@@ -139,7 +140,8 @@
             $tipo = 'cliente';
         }
 		
-		// Insere usuário no banco
+        // Insere usuário no banco
+        $senha = strrev($senha);
         $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
         mysqli_query($conn,$sql);
 

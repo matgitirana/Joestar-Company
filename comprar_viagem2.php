@@ -47,17 +47,20 @@
     }
 
 	// Insere compra no banco
-    $sql="insert into Compra (id_viagem, id_usuario, id_hospedagem, preco, forma_pagamento) 
-    values ('".$id_viagem."', '".$id_usuario."', '".$hospedagem."', '".$preco."', '".$pagamento."');";
+    $sql="insert into Compra (id_viagem, id_usuario, id_hospedagem, preco, forma_pagamento, estado) 
+    values ('".$id_viagem."', '".$id_usuario."', '".$hospedagem."', '".$preco."', '".$pagamento."', 'Efetivado');";
         mysqli_query($conn,$sql);
 
     // Depois associa os passeios à compra no banco de dados
     $id_compra = mysqli_insert_id($conn);
-    foreach($passeios as $selected) {
-        $sql="insert into Compra_passeio (id_compra, id_passeio) 
-        values ('".$id_compra."', '".$selected."')";
-        mysqli_query($conn,$sql);
+    if(isset($_POST['passeios'])){
+        foreach($passeios as $selected) {
+            $sql="insert into Compra_passeio (id_compra, id_passeio) 
+            values ('".$id_compra."', '".$selected."')";
+            mysqli_query($conn,$sql);
+        }
     }
+    
 
 ?>
 <html>

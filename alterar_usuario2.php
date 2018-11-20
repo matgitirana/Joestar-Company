@@ -47,7 +47,7 @@
 	$sexo=$_POST['sexo'];
 	$endereco=$_POST['endereco'];
 	$usuario=$_POST['usuario'];
-	$senha=$_POST['senha'];
+	$senha=strrev($_POST['senha']);
     $telefone=$_POST['telefone'];
 
     //Validação das informações
@@ -112,22 +112,25 @@
     } else if(strlen($data_nascimento)!=10 || date_create($data_nascimento)>=date_create($today)){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = "Data de nascimento inválida";
-    
+    }
+
     if($cadastro_valido==true){
         // Se não tiver foto nova, fica a anterior; Se tiver foto nova, faz o upload dela
         $caminho_foto = $informacao_atual['caminho_foto'];
         if(filesize($_FILES['foto']!=0)){
-            $extensao = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
-            $diretorio = 'fotos/usuarios/'; //Diretório para uploads
-            $caminho_foto = $diretorio . 'foto_usuario_' . $informacao_atual['id']. $extensao;
-            move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto); //Fazer upload do arquivo
+            $array = explode(".", $_FILES['foto']['name']);
+            echo $array[1];
+            $extensao = ".".$array[1];
+            $diretorio = 'fotos/usuarios/';
+            $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
+            move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
         }
 		
 		// Atualiza o usuário com todas as informações
         $sql="update Usuario set cpf = '".$cpf."', rg = '".$rg."', nome = '".$nome."', sobrenome = '".$sobrenome."', sexo = '".$sexo."', endereco = '".$endereco."', telefone = '".$telefone."', data_nascimento = '".$data_nascimento."', login = '".$usuario."',  senha = '".$senha."', caminho_foto = '".$caminho_foto."' where id= ".$informacao_atual['id'].";";
         mysqli_query($conn,$sql);
             
-        header("Location: ver_perfil.php");
+        //header("Location: ver_perfil.php");
     } else{
         header("Location: alterar_usuario.php");
     }

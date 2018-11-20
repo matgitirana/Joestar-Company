@@ -158,7 +158,7 @@
 				
 				<tr>
 					<td><label>Senha</label></td>
-					<td><input type='password' size='30' name='senha' minlength='5' maxlength='20' value='". $consulta['senha'] ."'></td>
+					<td><input type='password' size='30' name='senha' minlength='5' maxlength='20' value='". strrev($consulta['senha']) ."'></td>
 				</tr>
 				
 				<tr>
