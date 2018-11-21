@@ -93,7 +93,7 @@
                                 $preco = $preco_transporte["preco"]+$row["preco_translado"];
                                 echo "
                                 <tr align='center'>   
-                                    <td><a href=viagem_detalhes.php?id=". $row["id"] ."><img width='50%' src = '".$row["caminho_foto"]."' alt='foto da viagem'></a></td>
+                                    <td><a href=viagem_detalhes.php?id=". $row["id"] ."><img width='100px' src = '".$row["caminho_foto"]."' alt='foto da viagem'></a></td>
                                     <td>".$row["destino"]."</td>
                                     <td>".$row["data_partida"]."</td>
                                     <td>".$row["transporte"]."</td>

@@ -115,7 +115,7 @@
                     <tr>
                         <th>Destino</th>
                         <td>".$viagem['destino']."</td>
-                        <td rowspan='10'><img src='".$viagem['caminho_foto']."' alt='imagem da viagem'></td>
+                        <td rowspan='10'><img src='".$viagem['caminho_foto']."' alt='imagem da viagem' width = '300px'></td>
                     </tr>
                     <tr>
                         <th> Data de partida</th>
@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <th> Preço</th>
-                        <td>".$preco."</td>
+                        <td>R$ ".$preco."</td>
                     </tr>
                     <tr>
                         <th> Opções de hospedagem</th>

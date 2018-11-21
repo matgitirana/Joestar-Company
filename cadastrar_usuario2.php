@@ -145,6 +145,19 @@
         $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
         mysqli_query($conn,$sql);
 
+        //Verifica qual foi o id do novo usuário para usar no caminho da foto
+        $id_usuario = mysqli_insert_id($conn);
+
+        //Faz upload da foto
+        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
+        $diretorio = 'fotos/usuarios/';
+        $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
+        move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
+
+        //insere o caminho da foto no banco
+        $sql="update Usuario set caminho_foto = '".$caminho_foto."' where id = ".$id_usuario.";";
+        mysqli_query($conn,$sql);
+
         if($_SESSION['tipo_usuario']=='adm')
             header("Location: consultar_usuarios.php");
         else

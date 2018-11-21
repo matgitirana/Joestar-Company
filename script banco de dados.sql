@@ -1,4 +1,4 @@
-drop database JoestarCompany;
+drop database if exists JoestarCompany;
 
 create database JoestarCompany;
 
@@ -16,7 +16,7 @@ create table JoestarCompany.Usuario(
     disponibilidade char(1) not null,
     login varchar(10) not null,
     senha varchar(20) not null,
-    caminho_foto varchar(60)  not null,
+    caminho_foto varchar(60),
     constraint usuario_pk primary key(id)
 );
 
@@ -35,7 +35,7 @@ create table JoestarCompany.Viagem(
     translado bool not null,
     disponibilidade char(1) not null,
     preco_translado double not null,
-    caminho_foto varchar(60) not null,
+    caminho_foto varchar(60),
     constraint viagem_pk primary key(id),
     constraint viagem_fk_transporte foreign key(transporte) references Transporte(transporte)
 );
