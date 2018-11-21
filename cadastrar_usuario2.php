@@ -51,10 +51,6 @@
 	$senha=$_POST['senha'];
     $telefone=$_POST['telefone'];
     
-    //Validação das informações
-    $cadastro_valido = true;
-    $today = date("Y-m-d");
-
     // Usado para checar se já existe um usuário com o cpf informado
     $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and disponibilidade='1';";
     $sql_resultado = mysqli_query($conn,$sql);
@@ -73,8 +69,9 @@
     $consulta = mysqli_fetch_assoc($sql_resultado);
     $qtdLogin = $consulta['quantidade'];
 
-     
-    
+    //Validação das informações
+    $cadastro_valido = true;
+    $today = date("Y-m-d");
 
     if(validar_cpf($cpf)==false){
         $cadastro_valido=false;
@@ -111,26 +108,13 @@
     } else if(strlen($data_nascimento)!=10 || date_create($data_nascimento)>=date_create($today)){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = "Data de nascimento inválida";
-    } else if(filesize($_FILES['foto']==0)){
+    } else if(!is_uploaded_file($_FILES['foto']['tmp_name'])){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = "Foto é obrigatória";
     }    
-
     
     if($cadastro_valido==true){
-        //Verifica qual será o id do novo usuário para usar no caminho da foto
-        $sql="select count(id) as quantidade from Usuario;";
-        $sql_resultado = mysqli_query($conn,$sql);
-        $consulta = mysqli_fetch_assoc($sql_resultado);
-        $id_usuario = $consulta['quantidade']+1;
-
-        //Faz upload da foto
-        $array = explode(".", $_FILES['foto']['name'], 2);
-        $extensao = ".".$array[1];
-        $diretorio = 'fotos/usuarios/';
-        $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
-        move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
-        
+               
         //disponibilidade 1 = ativo
         $disponibilidade = '1';
         //Adm só pode criar usuário adm; usuário não logado só pode se cadastrar como cliente
@@ -142,14 +126,16 @@
 		
         // Insere usuário no banco
         $senha = strrev($senha);
-        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha, caminho_foto) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."', '".$caminho_foto."');";
+        $sql="insert into Usuario (cpf, rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login,  senha) values ('".$cpf."', '".$rg."', '".$nome."', '".$sobrenome."', '".$sexo."', '".$endereco."', '".$telefone."', '".$data_nascimento."', '".$tipo."', '".$disponibilidade."', '".$usuario."', '".$senha."');";
+        echo $sql;
         mysqli_query($conn,$sql);
 
         //Verifica qual foi o id do novo usuário para usar no caminho da foto
         $id_usuario = mysqli_insert_id($conn);
 
         //Faz upload da foto
-        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
+        $array = explode(".", $_FILES['foto']['name'], 2);
+        $extensao = ".".$array[1];
         $diretorio = 'fotos/usuarios/';
         $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
@@ -157,12 +143,12 @@
         //insere o caminho da foto no banco
         $sql="update Usuario set caminho_foto = '".$caminho_foto."' where id = ".$id_usuario.";";
         mysqli_query($conn,$sql);
-
+        ///*
         if($_SESSION['tipo_usuario']=='adm')
             header("Location: consultar_usuarios.php");
         else
             header("Location: login.php");
-
+        //*/
     } else{
         header("Location: cadastrar_usuario.php");
     }

@@ -4,8 +4,8 @@ create database JoestarCompany;
 
 create table JoestarCompany.Usuario(
     id int AUTO_INCREMENT not null,
-    cpf char(11) unique not null,
-    rg varchar(30) unique not null,
+    cpf char(11) not null,
+    rg varchar(30) not null,
     nome varchar(50) not null,
     sobrenome varchar(50) not null,
     sexo char(1) not null,
@@ -93,10 +93,10 @@ create table JoestarCompany.Compra_Passeio(
 
 
 insert into JoestarCompany.Usuario (cpf ,rg, nome, sobrenome, sexo, endereco, telefone, data_nascimento, tipo, disponibilidade, login, senha, caminho_foto)
-values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'admin', 'fotos/usuarios/foto_usuario_1.jpg'),
-(78828788550, 87654321, 'Fulano', 'de Tal', 'm', 'Rua Y', '819123456789', '2000-11-01', 'cliente', '1', 'fulano', '12345', 'fotos/usuarios/foto_usuario_2.jpg'),
-(10119841134, 13572468, 'Maria', 'Genérica', 'f', 'Rua AZ', '987654321', '1990-12-25', 'cliente', '1', 'maria', '12345', 'fotos/usuarios/foto_usuario_3.jpg'),
-(28629745878, 12534878515, 'Cicrano', 'de Tal', 'o', 'Rua GH', '3021459845', '1980-01-02', 'cliente', '1', 'cicrano', '12345', 'fotos/usuarios/foto_usuario_4.jpg');
+values (15276231141, 12345678, 'Administrador', 'do Sistema', 'o', 'Rua X', '11123456789', '1996-01-01', 'adm', '1', 'admin', 'nimda', 'fotos/usuarios/foto_usuario_1.jpg'),
+(78828788550, 87654321, 'Fulano', 'de Tal', 'm', 'Rua Y', '819123456789', '2000-11-01', 'cliente', '1', 'fulano', '54321', 'fotos/usuarios/foto_usuario_2.jpg'),
+(10119841134, 13572468, 'Maria', 'Genérica', 'f', 'Rua AZ', '987654321', '1990-12-25', 'cliente', '1', 'maria', '54321', 'fotos/usuarios/foto_usuario_3.jpg'),
+(28629745878, 12534878515, 'Cicrano', 'de Tal', 'o', 'Rua GH', '3021459845', '1980-01-02', 'cliente', '1', 'cicrano', '54321', 'fotos/usuarios/foto_usuario_4.jpg');
 
 insert into JoestarCompany.Transporte(transporte, preco, disponibilidade) values ('avião', 1200, '1'), ('trem', 500, '1'), ('ônibus', 200, '1'), ('navio', 800, '1');
 
@@ -109,6 +109,6 @@ values ('Paris', CURDATE() + INTERVAL 10 DAY, 'avião', true, '1', 200, 'fotos/v
 ('Boston', CURDATE() + INTERVAL 2 DAY, 'avião', true, '1', 600, 'fotos/viagens/foto_viagem_6.jpg'),
 ('Roma', CURDATE() + INTERVAL 30 DAY, 'navio', true, '1', 200, 'fotos/viagens/foto_viagem_7.jpg');
 
-insert into JoestarCompany.Passeio(id_viagem, descricao, preco) values (1, 'lalalalalalala', 500), (1, 'lelelelelele', 400), (2, 'Teste1', 500), (3, 'Text', 500), (4, 'Passeio', 500), (5, 'Coisa legal', 500), (6, 'Alguma coisa', 500);
+insert into JoestarCompany.Passeio(id_viagem, descricao, preco) values (1, 'Passeio torre eiffel', 500), (1, 'Passeio 2', 400), (2, 'Passeio big ben', 500), (3, 'Passeio praça', 500), (4, 'Passeio Akihabara', 500), (5, 'Passeio cristo redentor', 500), (6, 'Passeio coliseu', 500);
 
-insert into JoestarCompany.Hospedagem(id_viagem, estrelas, preco_diaria) values (1, 3, 500), (1, 2, 400), (1, 5, 500), (3, 2, 500), (4, 4, 500), (5, 3, 500), (6, 1, 500);
+insert into JoestarCompany.Hospedagem(id_viagem, estrelas, preco_diaria) values (1, 3, 500), (1, 2, 400), (1, 5, 2500), (2, 5, 1500), (3, 2, 500), (4, 4, 700), (5, 3, 500), (6, 1, 200), (7, 4, 1000);
