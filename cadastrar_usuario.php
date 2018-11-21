@@ -43,14 +43,16 @@
                         echo "
                         <li><a href='home.php'>Home</a></li>
                         <li><a href='consultar_viagens.php'>Viagens</a></li>
-                        <li><a href='ver_perfil.php'>Perfil</a></li>
+						<li><a href='ver_perfil.php'>Perfil</a></li>
+						<li><a href='consulta_compras.php'>Compras</a></li>
                         <li><a href='logout.php'>Logout</a></li>
                         ";
                     } else if($_SESSION['tipo_usuario'] == 'adm'){
                         echo "
                         <li><a href='home.php'>Home</a></li>
                         <li><a href='consultar_viagens.php'>Viagens</a></li>
-                        <li><a href='ver_perfil.php'>Perfil</a></li>
+						<li><a href='ver_perfil.php'>Perfil</a></li>
+						<li><a href='consulta_compras.php'>Compras</a></li>
                         <li><a href='ver_usuarios.php'>Usuários</a></li>
                         <li><a href='cadastrar_viagem.php'>Nova viagem</a></li>
                         <li><a href='cadastrar_usuario.php'>Novo adm</a></li>
