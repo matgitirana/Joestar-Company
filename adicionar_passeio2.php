@@ -24,6 +24,7 @@
 
     $passeio_valido = true;
     
+    //Validação das entradas
     if(strlen($descricao)==0){
         $passeio_valido = false;
         $_SESSION['mensagem'] = "Comentário inválido";
@@ -32,8 +33,6 @@
         $_SESSION['mensagem'] = "Preço inválido";
     }
 
-    
-    
     if($passeio_valido){
         $sql = "insert into Passeio(id_viagem, descricao, preco) values(".$id_viagem.", '".$descricao."', ".$preco.");";
         mysqli_query($conn,$sql);
@@ -41,7 +40,5 @@
     } else {
         header("Location: adicionar_passeio.php?id=$id_viagem");
     }
-
-    
     
 ?>

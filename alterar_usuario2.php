@@ -50,10 +50,6 @@
 	$senha=strrev($_POST['senha']);
     $telefone=$_POST['telefone'];
 
-    //Validação das informações
-    $cadastro_valido = true;
-    $today = date("Y-m-d");
-
     // Usado para checar se já existe um usuário com o cpf informado
     $sql="select count(cpf) as quantidade from Usuario where cpf = '".$cpf."' and disponibilidade='1';";
     $sql_resultado = mysqli_query($conn,$sql);
@@ -77,6 +73,11 @@
     $sql_resultado = mysqli_query($conn,$sql);
     $informacao_atual = mysqli_fetch_assoc($sql_resultado);
         
+    //Validação das informações
+    $cadastro_valido = true;
+    $today = date("Y-m-d");
+
+
     if(validar_cpf($cpf)==false){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = "CPF inválido";
@@ -117,9 +118,8 @@
     if($cadastro_valido==true){
         // Se não tiver foto nova, fica a anterior; Se tiver foto nova, faz o upload dela
         $caminho_foto = $informacao_atual['caminho_foto'];
-        if(filesize($_FILES['foto']!=0)){
-            $array = explode(".", $_FILES['foto']['name']);
-            echo $array[1];
+        if(is_uploaded_file($_FILES['foto']['tmp_name'])){
+            $array = explode(".", $_FILES['foto']['name'], 2);
             $extensao = ".".$array[1];
             $diretorio = 'fotos/usuarios/';
             $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
@@ -130,7 +130,7 @@
         $sql="update Usuario set cpf = '".$cpf."', rg = '".$rg."', nome = '".$nome."', sobrenome = '".$sobrenome."', sexo = '".$sexo."', endereco = '".$endereco."', telefone = '".$telefone."', data_nascimento = '".$data_nascimento."', login = '".$usuario."',  senha = '".$senha."', caminho_foto = '".$caminho_foto."' where id= ".$informacao_atual['id'].";";
         mysqli_query($conn,$sql);
             
-        //header("Location: ver_perfil.php");
+        header("Location: ver_perfil.php");
     } else{
         header("Location: alterar_usuario.php");
     }

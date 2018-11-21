@@ -35,9 +35,9 @@
         $preco_translado=$_POST['preco_translado'];
     else
         $preco_translado = 0;
+
     $transporte=$_POST['transporte'];
     $translado=$_POST['translado'];
-    //$passeios=$_POST['passeios'];
 
     //Validação do cadastro
     $today = date("Y-m-d");
@@ -45,7 +45,7 @@
     if(strlen($destino)==0){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = 'Destino inválido';
-    } else if(filesize($_FILES['foto']==0)){
+    } else if(!is_uploaded_file($_FILES['foto']['tmp_name'])){
         $cadastro_valido=false;
         $_SESSION['mensagem'] = 'Foto é obrigatória';
     } else if($translado=='1' && $preco_translado==0){
@@ -56,12 +56,7 @@
         $_SESSION['mensagem'] = 'Data de partida inválida';
     }
         
-    
-    
     if($cadastro_valido==true){
-        
-
-        
         
         //disponibilidade 1 = ativo
         $disponibilidade = '1';
@@ -82,9 +77,10 @@
         $id_viagem = mysqli_insert_id($conn);
 
         //Upload da foto da viagem
-        $extensao = strtolower(substr($_FILES['foto']['name'],-4));
-        $diretorio = 'fotos/viagens/';
-        $caminho_foto = $diretorio . 'foto_viagem_' . $id_viagem. $extensao;
+        $array = explode(".", $_FILES['foto']['name'], 2);
+        $extensao = ".".$array[1];
+        $diretorio = 'fotos/usuarios/';
+        $caminho_foto = $diretorio . 'foto_usuario_' . $id_usuario. $extensao;
         move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_foto);
 
         //insere o caminho da foto no banco
